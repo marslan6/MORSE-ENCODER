@@ -1,0 +1,211 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"dimming.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "dimming.c"
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	1
+  21              		.global	main
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	main:
+  27              	.LFB128:
+   1:dimming.c     **** #include <xmc_common.h>
+   2:dimming.c     **** 
+   3:dimming.c     **** void initCCU4(void);
+   4:dimming.c     **** void connectLED(void);
+   5:dimming.c     **** 
+   6:dimming.c     **** int main(void) {
+  28              		.loc 1 6 16
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32 0000 80B5     		push	{r7, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 7, -8
+  36              		.cfi_offset 14, -4
+  37 0002 00AF     		add	r7, sp, #0
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_register 7
+   7:dimming.c     **** 
+   8:dimming.c     ****   initCCU4();
+  40              		.loc 1 8 3
+  41 0004 FFF7FEFF 		bl	initCCU4
+  42              	.L2:
+   9:dimming.c     **** 
+  10:dimming.c     ****   while(1);
+  43              		.loc 1 10 8
+  44 0008 00BF     		nop
+  45 000a FDE7     		b	.L2
+  46              		.cfi_endproc
+  47              	.LFE128:
+  49              		.section	.text.initCCU4,"ax",%progbits
+  50              		.align	1
+  51              		.global	initCCU4
+  52              		.syntax unified
+  53              		.thumb
+  54              		.thumb_func
+  56              	initCCU4:
+  57              	.LFB129:
+  11:dimming.c     ****   return 0;
+  12:dimming.c     **** }
+  13:dimming.c     **** 
+  14:dimming.c     **** void initCCU4() {
+  58              		.loc 1 14 17
+  59              		.cfi_startproc
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 1, uses_anonymous_args = 0
+  62 0000 80B5     		push	{r7, lr}
+  63              	.LCFI2:
+  64              		.cfi_def_cfa_offset 8
+  65              		.cfi_offset 7, -8
+  66              		.cfi_offset 14, -4
+  67 0002 00AF     		add	r7, sp, #0
+  68              	.LCFI3:
+  69              		.cfi_def_cfa_register 7
+  15:dimming.c     ****   /* Release CCU4 instance 0 from reset (manual 22.6.1 step 2) */
+  16:dimming.c     **** 
+  17:dimming.c     ****   /* Enable clock to CCUs (manual 22.6.1 step 3) */
+  18:dimming.c     **** 
+  19:dimming.c     ****   /* Enable prescaler in CCU4 instance 0 (manual 22.6.1 step 4) */
+  20:dimming.c     **** 
+  21:dimming.c     ****   /* Configure period and compare in CCU4 instance 0 slice 2 (manual 22.6.1 step 6) */
+  22:dimming.c     **** 
+  23:dimming.c     ****   /* Request shadow transfer for CCU4 instance 0 slice 2 (manual 22.6.1 step 6) */
+  24:dimming.c     **** 
+  25:dimming.c     ****   /* Connect LED1 to CCU40.OUT2 */
+  26:dimming.c     ****   connectLED();
+  70              		.loc 1 26 3
+  71 0004 FFF7FEFF 		bl	connectLED
+  27:dimming.c     ****   /* Enable timer slice 2 in CCU4 instance 0 (manual 22.6.1 step 8) */
+  28:dimming.c     **** 
+  29:dimming.c     ****   /* Start slice 2 in CCU4 instance 0 by setting run bit (manual 22.6.1 step 9) */
+  30:dimming.c     **** 
+  31:dimming.c     **** }
+  72              		.loc 1 31 1
+  73 0008 00BF     		nop
+  74 000a 80BD     		pop	{r7, pc}
+  75              		.cfi_endproc
+  76              	.LFE129:
+  78              		.section	.text.connectLED,"ax",%progbits
+  79              		.align	1
+  80              		.global	connectLED
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  85              	connectLED:
+  86              	.LFB130:
+  32:dimming.c     **** 
+  33:dimming.c     **** void connectLED() {
+  87              		.loc 1 33 19
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 1, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  92 0000 80B4     		push	{r7}
+  93              	.LCFI4:
+  94              		.cfi_def_cfa_offset 4
+  95              		.cfi_offset 7, -4
+  96 0002 00AF     		add	r7, sp, #0
+  97              	.LCFI5:
+  98              		.cfi_def_cfa_register 7
+  34:dimming.c     ****   /* Bit mask for alternate function 3 with push-pull output */
+  35:dimming.c     ****   static const uint8_t PP_ALT3 = 0b10011;
+  36:dimming.c     ****   PORT1->IOCR0 = (PORT1->IOCR0 & ~PORT1_IOCR0_PC1_Msk) | (PP_ALT3 << PORT1_IOCR0_PC1_Pos);
+  99              		.loc 1 36 24
+ 100 0004 074B     		ldr	r3, .L5
+ 101 0006 1B69     		ldr	r3, [r3, #16]
+ 102              		.loc 1 36 32
+ 103 0008 23F47842 		bic	r2, r3, #63488
+ 104              		.loc 1 36 67
+ 105 000c 064B     		ldr	r3, .L5+4
+ 106 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 107 0010 DB02     		lsls	r3, r3, #11
+ 108              		.loc 1 36 8
+ 109 0012 0449     		ldr	r1, .L5
+ 110              		.loc 1 36 56
+ 111 0014 1343     		orrs	r3, r3, r2
+ 112              		.loc 1 36 16
+ 113 0016 0B61     		str	r3, [r1, #16]
+  37:dimming.c     **** }
+ 114              		.loc 1 37 1
+ 115 0018 00BF     		nop
+ 116 001a BD46     		mov	sp, r7
+ 117              	.LCFI6:
+ 118              		.cfi_def_cfa_register 13
+ 119              		@ sp needed
+ 120 001c 5DF8047B 		ldr	r7, [sp], #4
+ 121              	.LCFI7:
+ 122              		.cfi_restore 7
+ 123              		.cfi_def_cfa_offset 0
+ 124 0020 7047     		bx	lr
+ 125              	.L6:
+ 126 0022 00BF     		.align	2
+ 127              	.L5:
+ 128 0024 00810248 		.word	1208123648
+ 129 0028 00000000 		.word	PP_ALT3.0
+ 130              		.cfi_endproc
+ 131              	.LFE130:
+ 133              		.section	.rodata
+ 136              	PP_ALT3.0:
+ 137 0000 13       		.byte	19
+ 138              		.text
+ 139              	.Letext0:
+ 140              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
+ 141              		.file 3 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/CMSIS/Infineon/XMC4500_series/Include/XMC4500.
+DEFINED SYMBOLS
+                            *ABS*:00000000 dimming.c
+     /tmp/ccssy6HQ.s:20     .text.main:00000000 $t
+     /tmp/ccssy6HQ.s:26     .text.main:00000000 main
+     /tmp/ccssy6HQ.s:56     .text.initCCU4:00000000 initCCU4
+     /tmp/ccssy6HQ.s:50     .text.initCCU4:00000000 $t
+     /tmp/ccssy6HQ.s:85     .text.connectLED:00000000 connectLED
+     /tmp/ccssy6HQ.s:79     .text.connectLED:00000000 $t
+     /tmp/ccssy6HQ.s:128    .text.connectLED:00000024 $d
+     /tmp/ccssy6HQ.s:136    .rodata:00000000 PP_ALT3.0
+                           .group:00000000 wm4.0.5204cb0cff344e60234ccbcc77681540
+                           .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
+                           .group:00000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
+                           .group:00000000 wm4.stdbool.h.29.c08aa3eec75cf5b9b5003883f43253f0
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.newlib.h.27.07bf1b8b16da454ae07478107717878b
+                           .group:00000000 wm4.ieeefp.h.77.5ad60f72ea25fc152400b550ac118212
+                           .group:00000000 wm4.features.h.22.c11ecc6cb8b914ead0c0895c00b4b4d5
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.cdefs.h.49.a0dc0a4a6c7d01e2e5d0aade9399215f
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.c0958401bd0ce484d507ee19aacab817
+                           .group:00000000 wm4.reent.h.78.7f0775353a33c852a1479c008f68cd03
+                           .group:00000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:00000000 wm4.stddef.h.158.eec8bf00b5213f43d095cb984c5f22e3
+                           .group:00000000 wm4.xmc_device.h.61.ba2d082e12f51240746cffdd60d42b81
+                           .group:00000000 wm4.XMC4500.h.55.9aa45b9b5790506b2dcb963e4e7adeaf
+                           .group:00000000 wm4.core_cm4.h.32.6c6eb1c8daeca23ce7ba79c8e8120d52
+                           .group:00000000 wm4.cmsis_gcc.h.26.91b63349961c35637933e4fba51b867b
+                           .group:00000000 wm4.core_cm4.h.172.fdd5a388a160bb6ff767b7d7ee212268
+                           .group:00000000 wm4.system_XMC4500.h.42.99124977c10ca8844a71949adbeabd70
+                           .group:00000000 wm4.XMC4500.h.208.b340195df97f067735c4c769ba59985a
+                           .group:00000000 wm4.xmc_device.h.1460.8860499b404961ffcfbb8d1fefcb2146
+                           .group:00000000 wm4.xmc_common.h.92.3f4336a80569affab05a81145b87c2fc
+
+NO UNDEFINED SYMBOLS
