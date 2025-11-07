@@ -1,0 +1,9 @@
+{
+    "PROJECT.NAME": "MORSE_TIME",
+    "files.associations": {
+        "xmc_gpio.h": "c",
+        "virtualserial.h": "c",
+        "usb.h": "c",
+        "xmc_common.h": "c"
+    }
+}
