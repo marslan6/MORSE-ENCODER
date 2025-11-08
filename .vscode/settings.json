@@ -4,6 +4,7 @@
         "xmc_gpio.h": "c",
         "virtualserial.h": "c",
         "usb.h": "c",
-        "xmc_common.h": "c"
+        "xmc_common.h": "c",
+        "xmc_device.h": "c"
     }
 }

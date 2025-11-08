@@ -237,7 +237,7 @@ END GROUP
                 0x00000800                        stack_size = DEFINED (stack_size)?stack_size:0x800
                 0x00000040                        no_init_size = 0x40
 
-.text           0x08000000     0x16f8 load address 0x0c000000
+.text           0x08000000     0x1740 load address 0x0c000000
                 0x08000000                        sText = .
  *(.reset)
  .reset         0x08000000      0x2b2 lib_build/startup_XMC4500.o
@@ -358,96 +358,96 @@ END GROUP
  .text          0x080002b2        0x0 build/dimming.o
  .text.main     0x080002b2        0xc build/dimming.o
                 0x080002b2                main
+ *fill*         0x080002be        0x2 
  .text.initCCU4
-                0x080002be        0xc build/dimming.o
-                0x080002be                initCCU4
- *fill*         0x080002ca        0x2 
+                0x080002c0       0x54 build/dimming.o
+                0x080002c0                initCCU4
  .text.connectLED
-                0x080002cc       0x2c build/dimming.o
-                0x080002cc                connectLED
- .text          0x080002f8        0x0 lib_build/startup_XMC4500.o
- .text          0x080002f8        0x0 lib_build/system_XMC4500.o
- .text.delay    0x080002f8       0x2c lib_build/system_XMC4500.o
+                0x08000314       0x2c build/dimming.o
+                0x08000314                connectLED
+ .text          0x08000340        0x0 lib_build/startup_XMC4500.o
+ .text          0x08000340        0x0 lib_build/system_XMC4500.o
+ .text.delay    0x08000340       0x2c lib_build/system_XMC4500.o
  .text.SystemInit
-                0x08000324       0x24 lib_build/system_XMC4500.o
-                0x08000324                SystemInit
+                0x0800036c       0x24 lib_build/system_XMC4500.o
+                0x0800036c                SystemInit
  .text.SystemCoreSetup
-                0x08000348       0x74 lib_build/system_XMC4500.o
-                0x08000348                SystemCoreSetup
+                0x08000390       0x74 lib_build/system_XMC4500.o
+                0x08000390                SystemCoreSetup
  .text.SystemCoreClockSetup
-                0x080003bc      0x208 lib_build/system_XMC4500.o
-                0x080003bc                SystemCoreClockSetup
+                0x08000404      0x208 lib_build/system_XMC4500.o
+                0x08000404                SystemCoreClockSetup
  .text.SystemCoreClockUpdate
-                0x080005c4       0xd4 lib_build/system_XMC4500.o
-                0x080005c4                SystemCoreClockUpdate
+                0x0800060c       0xd4 lib_build/system_XMC4500.o
+                0x0800060c                SystemCoreClockUpdate
  .text.OSCHP_GetFrequency
-                0x08000698       0x14 lib_build/system_XMC4500.o
-                0x08000698                OSCHP_GetFrequency
- .text          0x080006ac        0x0 lib_build/syscalls.o
- .text._sbrk    0x080006ac       0x68 lib_build/syscalls.o
-                0x080006ac                _sbrk
- .text._init    0x08000714        0xe lib_build/syscalls.o
-                0x08000714                _init
- *fill*         0x08000722        0x2 
- .text          0x08000724        0xc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
-                0x08000724                __errno
- .text          0x08000730        0x0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
- .text          0x08000730       0x50 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
-                0x08000730                __libc_init_array
- .text          0x08000780      0x224 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
-                0x080008b0                __sfp
-                0x08000954                __sinit
-                0x08000974                __sfp_lock_acquire
-                0x08000978                __sfp_lock_release
-                0x0800097c                __fp_lock_all
-                0x08000990                __fp_unlock_all
- .text          0x080009a4       0xa4 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
-                0x080009a4                memset
- .text          0x08000a48       0x44 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
-                0x08000a48                _fwalk_sglue
- .text          0x08000a8c      0x55c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
-                0x08000a8c                _malloc_r
- .text          0x08000fe8      0x2b0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
-                0x08000fe8                _malloc_trim_r
-                0x080010a0                _free_r
- .text          0x08001298       0x90 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
-                0x08001298                _fclose_r
-                0x08001318                fclose
- .text          0x08001328       0x1c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
-                0x08001328                sysconf
- .text          0x08001344       0x94 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
-                0x08001344                __sread
-                0x08001368                __seofread
-                0x0800136c                __swrite
-                0x080013ac                __sseek
-                0x080013d0                __sclose
- .text          0x080013d8       0x2c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
-                0x080013d8                _write_r
- .text          0x08001404        0x8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
-                0x08001404                __malloc_lock
-                0x08001408                __malloc_unlock
- .text          0x0800140c       0x24 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
-                0x0800140c                _sbrk_r
- .text          0x08001430       0x24 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
-                0x08001430                _close_r
- .text          0x08001454      0x19c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
-                0x08001454                __sflush_r
-                0x0800157c                _fflush_r
-                0x080015a8                fflush
- .text          0x080015f0       0x2c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
-                0x080015f0                _read_r
- .text          0x0800161c       0x2c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
-                0x0800161c                _lseek_r
- .text          0x08001648       0x6c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
-                0x08001648                _reclaim_reent
- .text          0x080016b4       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
-                0x080016b4                _close
- .text          0x080016c4       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
-                0x080016c4                _lseek
- .text          0x080016d4       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
-                0x080016d4                _read
- .text          0x080016e4       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
-                0x080016e4                _write
+                0x080006e0       0x14 lib_build/system_XMC4500.o
+                0x080006e0                OSCHP_GetFrequency
+ .text          0x080006f4        0x0 lib_build/syscalls.o
+ .text._sbrk    0x080006f4       0x68 lib_build/syscalls.o
+                0x080006f4                _sbrk
+ .text._init    0x0800075c        0xe lib_build/syscalls.o
+                0x0800075c                _init
+ *fill*         0x0800076a        0x2 
+ .text          0x0800076c        0xc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
+                0x0800076c                __errno
+ .text          0x08000778        0x0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
+ .text          0x08000778       0x50 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
+                0x08000778                __libc_init_array
+ .text          0x080007c8      0x224 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
+                0x080008f8                __sfp
+                0x0800099c                __sinit
+                0x080009bc                __sfp_lock_acquire
+                0x080009c0                __sfp_lock_release
+                0x080009c4                __fp_lock_all
+                0x080009d8                __fp_unlock_all
+ .text          0x080009ec       0xa4 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
+                0x080009ec                memset
+ .text          0x08000a90       0x44 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
+                0x08000a90                _fwalk_sglue
+ .text          0x08000ad4      0x55c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
+                0x08000ad4                _malloc_r
+ .text          0x08001030      0x2b0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
+                0x08001030                _malloc_trim_r
+                0x080010e8                _free_r
+ .text          0x080012e0       0x90 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
+                0x080012e0                _fclose_r
+                0x08001360                fclose
+ .text          0x08001370       0x1c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
+                0x08001370                sysconf
+ .text          0x0800138c       0x94 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
+                0x0800138c                __sread
+                0x080013b0                __seofread
+                0x080013b4                __swrite
+                0x080013f4                __sseek
+                0x08001418                __sclose
+ .text          0x08001420       0x2c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
+                0x08001420                _write_r
+ .text          0x0800144c        0x8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
+                0x0800144c                __malloc_lock
+                0x08001450                __malloc_unlock
+ .text          0x08001454       0x24 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
+                0x08001454                _sbrk_r
+ .text          0x08001478       0x24 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
+                0x08001478                _close_r
+ .text          0x0800149c      0x19c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
+                0x0800149c                __sflush_r
+                0x080015c4                _fflush_r
+                0x080015f0                fflush
+ .text          0x08001638       0x2c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
+                0x08001638                _read_r
+ .text          0x08001664       0x2c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
+                0x08001664                _lseek_r
+ .text          0x08001690       0x6c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
+                0x08001690                _reclaim_reent
+ .text          0x080016fc       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
+                0x080016fc                _close
+ .text          0x0800170c       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
+                0x0800170c                _lseek
+ .text          0x0800171c       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
+                0x0800171c                _read
+ .text          0x0800172c       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
+                0x0800172c                _write
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -461,29 +461,29 @@ END GROUP
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.rodata .rodata.*)
- .rodata        0x080016f4        0x1 build/dimming.o
+ .rodata        0x0800173c        0x1 build/dimming.o
  *(.gnu.linkonce.r*)
  *(vtable)
-                0x080016f8                        . = ALIGN (0x4)
- *fill*         0x080016f5        0x3 
+                0x08001740                        . = ALIGN (0x4)
+ *fill*         0x0800173d        0x3 
 
-.glue_7         0x080016f8        0x0 load address 0x0c0016f8
- .glue_7        0x080016f8        0x0 linker stubs
+.glue_7         0x08001740        0x0 load address 0x0c001740
+ .glue_7        0x08001740        0x0 linker stubs
 
-.glue_7t        0x080016f8        0x0 load address 0x0c0016f8
- .glue_7t       0x080016f8        0x0 linker stubs
+.glue_7t        0x08001740        0x0 load address 0x0c001740
+ .glue_7t       0x08001740        0x0 linker stubs
 
-.vfp11_veneer   0x080016f8        0x0 load address 0x0c0016f8
- .vfp11_veneer  0x080016f8        0x0 linker stubs
+.vfp11_veneer   0x08001740        0x0 load address 0x0c001740
+ .vfp11_veneer  0x08001740        0x0 linker stubs
 
-.v4_bx          0x080016f8        0x0 load address 0x0c0016f8
- .v4_bx         0x080016f8        0x0 linker stubs
+.v4_bx          0x08001740        0x0 load address 0x0c001740
+ .v4_bx         0x08001740        0x0 linker stubs
 
-.iplt           0x080016f8        0x0 load address 0x0c0016f8
- .iplt          0x080016f8        0x0 build/dimming.o
+.iplt           0x08001740        0x0 load address 0x0c001740
+ .iplt          0x08001740        0x0 build/dimming.o
 
-.rel.dyn        0x080016f8        0x0 load address 0x0c0016f8
- .rel.iplt      0x080016f8        0x0 build/dimming.o
+.rel.dyn        0x08001740        0x0 load address 0x0c001740
+ .rel.iplt      0x08001740        0x0 build/dimming.o
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
@@ -493,13 +493,13 @@ END GROUP
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080016f8                        . = ALIGN (0x4)
-                0x080016f8                        __exidx_start = .
+                0x08001740                        . = ALIGN (0x4)
+                0x08001740                        __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x080016f8                        __exidx_end = .
-                0x080016f8                        . = ALIGN (0x4)
+                0x08001740                        __exidx_end = .
+                0x08001740                        . = ALIGN (0x4)
 
 Stack           0x10000000      0x800
                 0x10000000                        __stack_start = .
@@ -508,25 +508,25 @@ Stack           0x10000000      0x800
                 0x10000800                        __stack_end = .
                 0x10000800                        __initial_sp = .
 
-.ram_code       0x10000800        0x0 load address 0x0c0016f8
+.ram_code       0x10000800        0x0 load address 0x0c001740
                 0x10000800                        . = ALIGN (0x4)
                 0x10000800                        __ram_code_start = .
  *(.ram_code)
                 0x10000800                        . = ALIGN (0x4)
                 0x10000800                        __ram_code_end = .
-                0x0c0016f8                        __ram_code_load = LOADADDR (.ram_code)
+                0x0c001740                        __ram_code_load = LOADADDR (.ram_code)
                 0x00000000                        __ram_code_size = (__ram_code_end - __ram_code_start)
 
-PSRAM_DATA      0x10000800        0x0 load address 0x0c0016f8
+PSRAM_DATA      0x10000800        0x0 load address 0x0c001740
                 0x10000800                        . = ALIGN (0x4)
                 0x10000800                        __data3_start = .
  *(PSRAM_DATA)
                 0x10000800                        . = ALIGN (0x4)
                 0x10000800                        __data3_end = .
-                0x0c0016f8                        __data3_load = LOADADDR (PSRAM_DATA)
+                0x0c001740                        __data3_load = LOADADDR (PSRAM_DATA)
                 0x00000000                        __data3_size = (__data3_end - __data3_start)
 
-PSRAM_BSS       0x10000800        0x0 load address 0x0c0016f8
+PSRAM_BSS       0x10000800        0x0 load address 0x0c001740
                 0x10000800                        . = ALIGN (0x4)
                 0x10000800                        __bss3_start = .
  *(PSRAM_BSS)
@@ -536,7 +536,7 @@ PSRAM_BSS       0x10000800        0x0 load address 0x0c0016f8
                 0x10000800                        Heap_Bank3_Start = .
                 0x00000000                        __bss3_size = (__bss3_end - __bss3_start)
 
-.data           0x20000000      0x548 load address 0x0c0016f8
+.data           0x20000000      0x548 load address 0x0c001740
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        __data_start = .
  *(.data)
@@ -593,13 +593,13 @@ PSRAM_BSS       0x10000800        0x0 load address 0x0c0016f8
                 [!provide]                        PROVIDE (__fini_array_end = .)
                 0x20000548                        . = ALIGN (0x4)
                 0x20000548                        __data_end = .
-                0x0c0016f8                        __data_load = LOADADDR (.data)
+                0x0c001740                        __data_load = LOADADDR (.data)
                 0x00000548                        __data_size = (__data_end - __data_start)
 
-.igot.plt       0x20000548        0x0 load address 0x0c001c40
+.igot.plt       0x20000548        0x0 load address 0x0c001c88
  .igot.plt      0x20000548        0x0 build/dimming.o
 
-.bss            0x20000548      0x180 load address 0x0c001c40
+.bss            0x20000548      0x180 load address 0x0c001c88
                 0x20000548                        . = ALIGN (0x4)
                 0x20000548                        __bss_start = .
  *(.bss)
@@ -655,18 +655,18 @@ PSRAM_BSS       0x10000800        0x0 load address 0x0c0016f8
                 0x2000ffc0                SystemCoreClock
                 0x2000ffc4                g_chipid
 
-DSRAM2_DATA     0x30000000        0x0 load address 0x0c001c40
+DSRAM2_DATA     0x30000000        0x0 load address 0x0c001c88
                 0x30000000                        . = ALIGN (0x4)
                 0x30000000                        __data2_start = .
  *(DSRAM2_DATA)
                 0x30000000                        . = ALIGN (0x4)
                 0x30000000                        __data2_end = .
-                0x0c001c40                        __data2_load = LOADADDR (DSRAM2_DATA)
+                0x0c001c88                        __data2_load = LOADADDR (DSRAM2_DATA)
                 0x00000000                        __data2_size = (__data2_end - __data2_start)
-                0x00001c40                        __text_size = (((((__exidx_end - sText) + __data_size) + __ram_code_size) + __data2_size) + __data3_size)
-                0x08001c40                        eText = (sText + __text_size)
+                0x00001c88                        __text_size = (((((__exidx_end - sText) + __data_size) + __ram_code_size) + __data2_size) + __data3_size)
+                0x08001c88                        eText = (sText + __text_size)
 
-DSRAM2_BSS      0x30000000        0x0 load address 0x0c001c40
+DSRAM2_BSS      0x30000000        0x0 load address 0x0c001c88
                 0x30000000                        . = ALIGN (0x4)
                 0x30000000                        __bss2_start = .
  *(ETH_RAM)
@@ -764,34 +764,34 @@ DSRAM2_BSS      0x30000000        0x0 load address 0x0c001c40
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_info     0x00000000     0xa447
+.debug_info     0x00000000     0xa93c
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x27c build/dimming.o
- .debug_info    0x0000027c      0x90f lib_build/system_XMC4500.o
- .debug_info    0x00000b8b      0x136 lib_build/syscalls.o
- .debug_info    0x00000cc1      0x70f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
- .debug_info    0x000013d0      0x729 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
- .debug_info    0x00001af9      0x10b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
- .debug_info    0x00001c04      0xea8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
- .debug_info    0x00002aac      0x135 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
- .debug_info    0x00002be1      0x7e4 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
- .debug_info    0x000033c5      0xcd9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
- .debug_info    0x0000409e      0xb55 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
- .debug_info    0x00004bf3      0x8e6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
- .debug_info    0x000054d9       0xc1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
- .debug_info    0x0000559a      0xa9e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
- .debug_info    0x00006038      0x7d9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
- .debug_info    0x00006811      0x73a /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
- .debug_info    0x00006f4b      0x796 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
- .debug_info    0x000076e1      0x770 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
- .debug_info    0x00007e51      0xa4c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
- .debug_info    0x0000889d      0x7d3 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
- .debug_info    0x00009070      0x7bc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
- .debug_info    0x0000982c      0x831 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
- .debug_info    0x0000a05d       0xde /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
- .debug_info    0x0000a13b      0x100 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
- .debug_info    0x0000a23b      0x106 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
- .debug_info    0x0000a341      0x106 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
+ .debug_info    0x00000000      0x771 build/dimming.o
+ .debug_info    0x00000771      0x90f lib_build/system_XMC4500.o
+ .debug_info    0x00001080      0x136 lib_build/syscalls.o
+ .debug_info    0x000011b6      0x70f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
+ .debug_info    0x000018c5      0x729 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
+ .debug_info    0x00001fee      0x10b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
+ .debug_info    0x000020f9      0xea8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
+ .debug_info    0x00002fa1      0x135 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
+ .debug_info    0x000030d6      0x7e4 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
+ .debug_info    0x000038ba      0xcd9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
+ .debug_info    0x00004593      0xb55 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
+ .debug_info    0x000050e8      0x8e6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
+ .debug_info    0x000059ce       0xc1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
+ .debug_info    0x00005a8f      0xa9e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
+ .debug_info    0x0000652d      0x7d9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
+ .debug_info    0x00006d06      0x73a /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
+ .debug_info    0x00007440      0x796 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
+ .debug_info    0x00007bd6      0x770 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
+ .debug_info    0x00008346      0xa4c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
+ .debug_info    0x00008d92      0x7d3 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
+ .debug_info    0x00009565      0x7bc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
+ .debug_info    0x00009d21      0x831 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
+ .debug_info    0x0000a552       0xde /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
+ .debug_info    0x0000a630      0x100 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
+ .debug_info    0x0000a730      0x106 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
+ .debug_info    0x0000a836      0x106 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
 
 .debug_abbrev   0x00000000     0x2d6b
  *(.debug_abbrev)
@@ -822,34 +822,34 @@ DSRAM2_BSS      0x30000000        0x0 load address 0x0c001c40
  .debug_abbrev  0x00002be3       0xc4 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
  .debug_abbrev  0x00002ca7       0xc4 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
 
-.debug_line     0x00000000     0x3be1
+.debug_line     0x00000000     0x3c0f
  *(.debug_line)
- .debug_line    0x00000000      0x317 build/dimming.o
- .debug_line    0x00000317      0x5b6 lib_build/system_XMC4500.o
- .debug_line    0x000008cd      0x2a2 lib_build/syscalls.o
- .debug_line    0x00000b6f      0x10c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
- .debug_line    0x00000c7b       0xe7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
- .debug_line    0x00000d62      0x11e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
- .debug_line    0x00000e80      0x4fc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
- .debug_line    0x0000137c      0x1b6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
- .debug_line    0x00001532      0x1d1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
- .debug_line    0x00001703      0x8e9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
- .debug_line    0x00001fec      0x544 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
- .debug_line    0x00002530      0x253 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
- .debug_line    0x00002783       0xe6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
- .debug_line    0x00002869      0x22b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
- .debug_line    0x00002a94      0x199 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
- .debug_line    0x00002c2d      0x153 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
- .debug_line    0x00002d80      0x193 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
- .debug_line    0x00002f13      0x193 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
- .debug_line    0x000030a6      0x464 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
- .debug_line    0x0000350a      0x198 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
- .debug_line    0x000036a2      0x199 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
- .debug_line    0x0000383b      0x1f0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
- .debug_line    0x00003a2b       0x6d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
- .debug_line    0x00003a98       0x6e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
- .debug_line    0x00003b06       0x6d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
- .debug_line    0x00003b73       0x6e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
+ .debug_line    0x00000000      0x345 build/dimming.o
+ .debug_line    0x00000345      0x5b6 lib_build/system_XMC4500.o
+ .debug_line    0x000008fb      0x2a2 lib_build/syscalls.o
+ .debug_line    0x00000b9d      0x10c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
+ .debug_line    0x00000ca9       0xe7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
+ .debug_line    0x00000d90      0x11e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
+ .debug_line    0x00000eae      0x4fc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
+ .debug_line    0x000013aa      0x1b6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
+ .debug_line    0x00001560      0x1d1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
+ .debug_line    0x00001731      0x8e9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
+ .debug_line    0x0000201a      0x544 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
+ .debug_line    0x0000255e      0x253 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
+ .debug_line    0x000027b1       0xe6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
+ .debug_line    0x00002897      0x22b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
+ .debug_line    0x00002ac2      0x199 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
+ .debug_line    0x00002c5b      0x153 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
+ .debug_line    0x00002dae      0x193 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
+ .debug_line    0x00002f41      0x193 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
+ .debug_line    0x000030d4      0x464 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
+ .debug_line    0x00003538      0x198 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
+ .debug_line    0x000036d0      0x199 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
+ .debug_line    0x00003869      0x1f0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
+ .debug_line    0x00003a59       0x6d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
+ .debug_line    0x00003ac6       0x6e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
+ .debug_line    0x00003b34       0x6d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
+ .debug_line    0x00003ba1       0x6e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
 
 .debug_frame    0x00000000      0x73c
  *(.debug_frame)
@@ -879,35 +879,35 @@ DSRAM2_BSS      0x30000000        0x0 load address 0x0c001c40
  .debug_frame   0x000006fc       0x20 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
  .debug_frame   0x0000071c       0x20 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
 
-.debug_str      0x00000000    0x721d3
+.debug_str      0x00000000    0x72254
  *(.debug_str)
- .debug_str     0x00000000    0x721d3 build/dimming.o
-                              0x6f7e4 (size before relaxing)
- .debug_str     0x000721d3    0x7003f lib_build/system_XMC4500.o
- .debug_str     0x000721d3     0x7961 lib_build/syscalls.o
- .debug_str     0x000721d3      0x49b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
- .debug_str     0x000721d3      0x4a6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
- .debug_str     0x000721d3      0x1ef /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
- .debug_str     0x000721d3      0x6a9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
- .debug_str     0x000721d3      0x1a2 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
- .debug_str     0x000721d3      0x4b1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
- .debug_str     0x000721d3      0x6c9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
- .debug_str     0x000721d3      0x611 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
- .debug_str     0x000721d3      0x500 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
- .debug_str     0x000721d3      0x197 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
- .debug_str     0x000721d3      0x50e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
- .debug_str     0x000721d3      0x4a7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
- .debug_str     0x000721d3      0x4bf /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
- .debug_str     0x000721d3      0x4aa /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
- .debug_str     0x000721d3      0x497 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
- .debug_str     0x000721d3      0x528 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
- .debug_str     0x000721d3      0x4a5 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
- .debug_str     0x000721d3      0x4a5 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
- .debug_str     0x000721d3      0x4c0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
- .debug_str     0x000721d3      0x192 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
- .debug_str     0x000721d3      0x190 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
- .debug_str     0x000721d3      0x18d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
- .debug_str     0x000721d3      0x190 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
+ .debug_str     0x00000000    0x72254 build/dimming.o
+                              0x6f963 (size before relaxing)
+ .debug_str     0x00072254    0x7003f lib_build/system_XMC4500.o
+ .debug_str     0x00072254     0x7961 lib_build/syscalls.o
+ .debug_str     0x00072254      0x49b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-errno.o)
+ .debug_str     0x00072254      0x4a6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-impure.o)
+ .debug_str     0x00072254      0x1ef /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-init.o)
+ .debug_str     0x00072254      0x6a9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-findfp.o)
+ .debug_str     0x00072254      0x1a2 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-memset.o)
+ .debug_str     0x00072254      0x4b1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fwalk.o)
+ .debug_str     0x00072254      0x6c9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mallocr.o)
+ .debug_str     0x00072254      0x611 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-freer.o)
+ .debug_str     0x00072254      0x500 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fclose.o)
+ .debug_str     0x00072254      0x197 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sysconf.o)
+ .debug_str     0x00072254      0x50e /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-stdio.o)
+ .debug_str     0x00072254      0x4a7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-writer.o)
+ .debug_str     0x00072254      0x4bf /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-mlock.o)
+ .debug_str     0x00072254      0x4aa /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-sbrkr.o)
+ .debug_str     0x00072254      0x497 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-closer.o)
+ .debug_str     0x00072254      0x528 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-fflush.o)
+ .debug_str     0x00072254      0x4a5 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-readr.o)
+ .debug_str     0x00072254      0x4a5 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-lseekr.o)
+ .debug_str     0x00072254      0x4c0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg.a(libc_a-reent.o)
+ .debug_str     0x00072254      0x192 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(close.o)
+ .debug_str     0x00072254      0x190 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(lseek.o)
+ .debug_str     0x00072254      0x18d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(read.o)
+ .debug_str     0x00072254      0x190 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libnosys.a(write.o)
 
 .debug_loc      0x00000000      0x2d4
  *(.debug_loc)
