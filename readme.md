@@ -5,6 +5,10 @@
 - Install the Cortex-Debug extension: https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug
 - SEGGER J-Link tools (JLinkGDBServer) and arm-none-eabi toolchain installed and in PATH as needed.
 
+## student.mk
+To ensure correct stepping during debug mode, add the following line.  
+`SCFLAGS += -Og -fno-omit-frame-pointer -fno-inline`
+
 ## .vscode/tasks.json
 All settings are parametrized. Copy and paste file directly to use.
 
@@ -96,3 +100,4 @@ Notes:
 - Copy `.vscode`, `Makefile`, and `student.mk` to your project.
 - Set `LD_NAME` in your `student.mk` to your project name.
 - Adjust `SRCS` `HDRS` `LIBSRCS` according to project structure.
+- To disable copilot auto-pilot code suggestions: `File > Preferences > Settings > Github Copilot Enable > (Adjust) Item * = False`
