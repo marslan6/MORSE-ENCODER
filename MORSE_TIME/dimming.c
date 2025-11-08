@@ -1,11 +1,27 @@
 #include <xmc_common.h>
+#include <stdio.h>
+
+#include "MORSE_ALPHABET.h"
+#include "MORSE_ENCODER.h"
 
 void initCCU4(void);
 void connectLED(void);
 
+/*
+  const XMC_GPIO_CONFIG_t LED_config = \
+        {.mode=XMC_GPIO_MODE_OUTPUT_PUSH_PULL,\
+         .output_level=XMC_GPIO_OUTPUT_LEVEL_LOW,\
+         .output_strength=XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE};
+
+  XMC_GPIO_Init(XMC_GPIO_PORT1, 0, &LED_config);
+*/
+
 int main(void) 
 {
-  initCCU4();
+  // initCCU4();
+  const char* word = "I CAN MORSE";
+  printf("UART ready @115200\r\n");
+  ConvertWordToMorseWord(word);
 
   while(1);
   return 0;
