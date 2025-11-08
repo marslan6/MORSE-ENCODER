@@ -13,7 +13,12 @@ AS = $(CROSS_COMPILE)-as
 OC = $(CROSS_COMPILE)-objcopy
 OD = $(CROSS_COMPILE)-objdump
 SZ = $(CROSS_COMPILE)-size
-DB = $(CROSS_COMPILE)-gdb
+GDB_BIN := $(shell command -v arm-none-eabi-gdb || command -v gdb-multiarch) # MODIFIED
+ifeq ($(GDB_QUIET),true)
+  DB = $(CROSS_COMPILE)-gdb -quiet
+else
+  DB = $(CROSS_COMPILE)-gdb
+endif
 
 # Paths to build directories for out-of-tree build and path to LUFA USB library
 BUILDDIR = build
@@ -83,28 +88,28 @@ LIBSRCS += syscalls.c
 OBJS = $(patsubst %.c,$(BUILDDIR)/%.o,$(SRCS))
 LIBOBJS = $(patsubst %.c,$(LIB_BUILDDIR)/%.o,$(LIBSRCS))
 
-.PHONY: default program debug clean
+.PHONY: default program debug clean erase
 
 PARENT_DIR := $(notdir $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/../))
-NOT_PACKED := $(shell cd ..; ls | grep -xv "Part[A-Z]")
-_PACKED := $(shell cd ..; ls */*/*.elf  | tr "/" "\n" | grep "Part")
-PACKED := $(patsubst %,../%,$(_PACKED))
-
-ifneq ($(NOT_PACKED),)
-	NOT_PACKING_STRING_1 := "NOTE: NOT PACKING THE FOLLOWING FILES: "
-	NOT_PACKING_STRING_2 := "(if you want to submit them, rename to 'Part[A-Z]' and make sure your *.elf is present): "
-endif
+NOT_PACKING_STRING_1 := "NOTE: NOT PACKING THE FOLLOWING FILES: "
+NOT_PACKING_STRING_2 := "(if you want to submit them, rename to 'Part[A-Z]' and make sure your *.elf, token, or exploit is present)"
 
 default: $(BUILDDIR)/main.elf $(BUILDDIR)/main.lst
 
 program: $(BUILDDIR)/main.hex $(BUILDDIR)/JLinkCommands
 	JLinkExe -Device XMC$(XMC_SERIES) -If SWD -Speed 1000 -CommanderScript $(BUILDDIR)/JLinkCommands
 
-debug: $(BUILDDIR)/main.elf $(BUILDDIR)/GDBCommands
+erase: $(BUILDDIR)/JLinkEraseCommands
+	JLinkExe -Device XMC$(XMC_SERIES) -If SWD -Speed 1000 -CommanderScript $(BUILDDIR)/JLinkEraseCommands
+
+test: serialtest.py
+	@python3 serialtest.py && echo "Passed."
+
+debug: $(BUILDDIR)/main.elf $(BUILDDIR)/GDBCommands GDBStudentCommands
 	echo "##### Debug session started at $(date) #####" >JLinkLog
 	JLinkGDBServer -device XMC$(XMC_SERIES) -endian little -if SWD -speed 1000 -halt -logtofile -log JLinkLog -silent -vd &
 	sleep 1
-	sh -ci "$(DB) -command=$(BUILDDIR)/GDBCommands -tui"
+	sh -ci "$(DB) -command=$(BUILDDIR)/GDBCommands -command=GDBStudentCommands -tui"
 	killall JLinkGDBServer
 
 $(BUILDDIR)/%.bin: $(BUILDDIR)/%.elf
@@ -132,11 +137,9 @@ $(LIB_BUILDDIR)/%.o: %.c | $(LIB_BUILDDIR)
 $(LIB_BUILDDIR)/startup_XMC$(XMC_SERIES).o: $(XMC_LIBDIR)/CMSIS/Infineon/XMC$(XMC_SERIES)_series/Source/GCC/startup_XMC$(XMC_SERIES).S | $(LIB_BUILDDIR)
 	$(CC) $(SFLAGS) -o $@ $<
 
-# When copying the linker description file, first try to copy one created by the student (and don't
-# complain if it does not exist), otherwise use the one from the library
+# When copying the linker description file, see if there is one created by the student and only if not copy the one from the library
 $(BUILDDIR)/$(LD_NAME).ld: $(XMC_LIBDIR)/CMSIS/Infineon/XMC$(XMC_SERIES)_series/Source/GCC/XMC$(XMC_SERIES)x$(XMC_SIZE).ld | $(BUILDDIR)
-	cp -pu $(LD_NAME).ld $@ | true
-	cp -n --preserve=timestamps $< $@
+	if [ -f "$(LD_NAME).ld" ] ; then cp -pu "$(LD_NAME).ld" $@ ; else cp -n --preserve=timestamps $< $@ ; fi
 
 $(BUILDDIR):
 	mkdir -p $@
@@ -148,21 +151,32 @@ $(LIB_BUILDDIR):
 $(BUILDDIR)/JLinkCommands: | $(BUILDDIR)
 	echo "h;loadfile ${BUILDDIR}/main.hex;r;g;q;" | sed 's/;/\n/g' > $(BUILDDIR)/JLinkCommands
 
+# Write a script file for JLinkExe
+$(BUILDDIR)/JLinkEraseCommands: | $(BUILDDIR)
+	echo "c;erase;q;" | sed 's/;/\n/g' > $(BUILDDIR)/JLinkEraseCommands
+
 # Write a script file for GDB
 $(BUILDDIR)/GDBCommands: | $(BUILDDIR)
 	echo "file ${BUILDDIR}/main.elf;target remote localhost:2331;monitor reset;load;break main;" | sed 's/;/\n/g' > $(BUILDDIR)/GDBCommands
 
-deliverable:
+GDBStudentCommands:
+	touch GDBStudentCommands
+
+deliverable: clean $(BUILDDIR)/ZIPlist $(BUILDDIR)/noZIPlist
 	@echo "packing deliverable"
-	@echo $(NOT_PACKING_STRING_1)
-	@echo $(NOT_PACKED)
-	@echo $(NOT_PACKING_STRING_2)
+	@if [ -s $(BUILDDIR)/noZIPlist ] ; then echo $(NOT_PACKING_STRING_1) && cat $(BUILDDIR)/noZIPlist && echo $(NOT_PACKING_STRING_2) ; fi
 	@echo ""
-	@zip ../$(PARENT_DIR).zip -r $(PACKED)
+	@sh -c "cd ..; cat $(abspath $(BUILDDIR)/ZIPlist) | zip $(PARENT_DIR).zip -r -@ -x */JLinkLog */noZIPlist"
+
+$(BUILDDIR)/ZIPlist: $(BUILDDIR)
+	@find ../ -regextype posix-extended -regex '\.{1,2}/Part[A-Z]/(token|exploit|.*.elf)' -printf '%h\0' | cut -z -d '/' -f 2 | sort -z -u | tr '\0' '\n' > $@
+
+# Grep unfortunately exits 1 if nothing matched, which in this case is good, so fix the return value to only report values > 1, i.e. actual errors
+$(BUILDDIR)/noZIPlist: $(BUILDDIR)/ZIPlist
+	@ls ../ | grep -xvf $(BUILDDIR)/ZIPlist > $@ || exit `expr \( "$$?" \> 1 \) \* "$$?"`
 
 clean:
 	rm -rf $(BUILDDIR)
 
 clean_all:
 	rm -rf $(BUILDDIR) $(LIB_BUILDDIR)
-
