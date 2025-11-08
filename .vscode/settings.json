@@ -5,6 +5,10 @@
         "virtualserial.h": "c",
         "usb.h": "c",
         "xmc_common.h": "c",
-        "xmc_device.h": "c"
+        "xmc_device.h": "c",
+        "morse_alphabet.h": "c",
+        "morse_encoder.h": "c",
+        "ENCODER.C": "cpp",
+        "MORSE_ENCODER.C": "cpp"
     }
 }

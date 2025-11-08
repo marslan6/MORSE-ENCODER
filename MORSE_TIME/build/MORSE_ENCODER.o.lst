@@ -1,0 +1,673 @@
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"MORSE_ENCODER.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "MORSE_ENCODER.c"
+  19              		.section	.rodata.str1.4,"aMS",%progbits,1
+  20              		.align	2
+  21              	.LC0:
+  22 0000 6F6E2031 		.ascii	"on 1u, \000"
+  22      752C2000 
+  23              		.align	2
+  24              	.LC1:
+  25 0008 6F6E2033 		.ascii	"on 3u, \000"
+  25      752C2000 
+  26              		.align	2
+  27              	.LC2:
+  28 0010 6F666620 		.ascii	"off 1u, \000"
+  28      31752C20 
+  28      00
+  29 0019 000000   		.align	2
+  30              	.LC3:
+  31 001c 72657475 		.ascii	"return, \000"
+  31      726E2C20 
+  31      00
+  32              		.section	.text.SendLetterFromMorseWord,"ax",%progbits
+  33              		.align	1
+  34              		.global	SendLetterFromMorseWord
+  35              		.syntax unified
+  36              		.thumb
+  37              		.thumb_func
+  39              	SendLetterFromMorseWord:
+  40              	.LVL0:
+  41              	.LFB131:
+   1:MORSE_ENCODER.c **** #include <xmc_common.h>
+   2:MORSE_ENCODER.c **** #include <stdio.h>
+   3:MORSE_ENCODER.c **** 
+   4:MORSE_ENCODER.c **** #include "MORSE_ENCODER.h"
+   5:MORSE_ENCODER.c **** #include "MORSE_ALPHABET.h"
+   6:MORSE_ENCODER.c **** 
+   7:MORSE_ENCODER.c **** void SendLetterFromMorseWord (const char* letter)
+   8:MORSE_ENCODER.c **** {
+  42              		.loc 1 8 1 view -0
+  43              		.cfi_startproc
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 1, uses_anonymous_args = 0
+  46              		.loc 1 8 1 is_stmt 0 view .LVU1
+  47 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  48              	.LCFI0:
+  49              		.cfi_def_cfa_offset 24
+  50              		.cfi_offset 4, -24
+  51              		.cfi_offset 5, -20
+  52              		.cfi_offset 6, -16
+  53              		.cfi_offset 7, -12
+  54              		.cfi_offset 8, -8
+  55              		.cfi_offset 14, -4
+  56 0004 00AF     		add	r7, sp, #0
+  57              	.LCFI1:
+  58              		.cfi_def_cfa_register 7
+  59 0006 8046     		mov	r8, r0
+   9:MORSE_ENCODER.c ****   uint32_t len = strlen(letter);
+  60              		.loc 1 9 3 is_stmt 1 view .LVU2
+  61              		.loc 1 9 18 is_stmt 0 view .LVU3
+  62 0008 FFF7FEFF 		bl	strlen
+  63              	.LVL1:
+  64              		.loc 1 9 18 view .LVU4
+  65 000c 0546     		mov	r5, r0
+  66              	.LVL2:
+  10:MORSE_ENCODER.c ****   for (uint32_t i = 0; i < len; i++)
+  67              		.loc 1 10 3 is_stmt 1 view .LVU5
+  68              	.LBB2:
+  69              		.loc 1 10 8 view .LVU6
+  70              		.loc 1 10 17 is_stmt 0 view .LVU7
+  71 000e 0024     		movs	r4, #0
+  72              		.loc 1 10 3 view .LVU8
+  73 0010 08E0     		b	.L2
+  74              	.LVL3:
+  75              	.L10:
+  76              	.LBB3:
+  11:MORSE_ENCODER.c ****   {
+  12:MORSE_ENCODER.c ****     bool is_next_char_eof = (i == len - 1);
+  13:MORSE_ENCODER.c ****     
+  14:MORSE_ENCODER.c ****     if (letter[i] == '.')
+  15:MORSE_ENCODER.c ****     {
+  16:MORSE_ENCODER.c ****       // ON 100ms (DOT)
+  17:MORSE_ENCODER.c ****       printf("on 1u, ");
+  77              		.loc 1 17 7 is_stmt 1 view .LVU9
+  78 0012 0E48     		ldr	r0, .L11
+  79 0014 FFF7FEFF 		bl	printf
+  80              	.LVL4:
+  81              	.L4:
+  18:MORSE_ENCODER.c ****     }
+  19:MORSE_ENCODER.c ****     else if (letter[i] == '-')
+  20:MORSE_ENCODER.c ****     {
+  21:MORSE_ENCODER.c ****       // ON 300ms (DASH)
+  22:MORSE_ENCODER.c ****       printf("on 3u, ");
+  23:MORSE_ENCODER.c ****     }
+  24:MORSE_ENCODER.c **** 
+  25:MORSE_ENCODER.c ****     if (is_next_char_eof == false)
+  82              		.loc 1 25 5 view .LVU10
+  83              		.loc 1 25 8 is_stmt 0 view .LVU11
+  84 0018 A642     		cmp	r6, r4
+  85 001a 10D0     		beq	.L5
+  26:MORSE_ENCODER.c ****     {
+  27:MORSE_ENCODER.c ****       // OFF 100ms (INTRA_SYMBOL_GAP)
+  28:MORSE_ENCODER.c ****       printf("off 1u, ");
+  86              		.loc 1 28 7 is_stmt 1 view .LVU12
+  87 001c 0C48     		ldr	r0, .L11+4
+  88 001e FFF7FEFF 		bl	printf
+  89              	.LVL5:
+  90              	.L6:
+  91              		.loc 1 28 7 is_stmt 0 view .LVU13
+  92              	.LBE3:
+  10:MORSE_ENCODER.c ****   {
+  93              		.loc 1 10 34 is_stmt 1 discriminator 2 view .LVU14
+  94 0022 0134     		adds	r4, r4, #1
+  95              	.LVL6:
+  96              	.L2:
+  10:MORSE_ENCODER.c ****   {
+  97              		.loc 1 10 26 discriminator 1 view .LVU15
+  98 0024 AC42     		cmp	r4, r5
+  99 0026 0ED2     		bcs	.L9
+ 100              	.LBB4:
+  12:MORSE_ENCODER.c ****     
+ 101              		.loc 1 12 5 view .LVU16
+  12:MORSE_ENCODER.c ****     
+ 102              		.loc 1 12 39 is_stmt 0 view .LVU17
+ 103 0028 6E1E     		subs	r6, r5, #1
+ 104              	.LVL7:
+  14:MORSE_ENCODER.c ****     {
+ 105              		.loc 1 14 5 is_stmt 1 view .LVU18
+  14:MORSE_ENCODER.c ****     {
+ 106              		.loc 1 14 15 is_stmt 0 view .LVU19
+ 107 002a 18F80430 		ldrb	r3, [r8, r4]	@ zero_extendqisi2
+  14:MORSE_ENCODER.c ****     {
+ 108              		.loc 1 14 8 view .LVU20
+ 109 002e 2E2B     		cmp	r3, #46
+ 110 0030 EFD0     		beq	.L10
+  19:MORSE_ENCODER.c ****     {
+ 111              		.loc 1 19 10 is_stmt 1 view .LVU21
+  19:MORSE_ENCODER.c ****     {
+ 112              		.loc 1 19 13 is_stmt 0 view .LVU22
+ 113 0032 2D2B     		cmp	r3, #45
+ 114 0034 F0D1     		bne	.L4
+  22:MORSE_ENCODER.c ****     }
+ 115              		.loc 1 22 7 is_stmt 1 view .LVU23
+ 116 0036 0748     		ldr	r0, .L11+8
+ 117 0038 FFF7FEFF 		bl	printf
+ 118              	.LVL8:
+ 119 003c ECE7     		b	.L4
+ 120              	.L5:
+  29:MORSE_ENCODER.c ****     }
+  30:MORSE_ENCODER.c ****     else 
+  31:MORSE_ENCODER.c ****     {
+  32:MORSE_ENCODER.c ****       printf("return, ");
+ 121              		.loc 1 32 7 view .LVU24
+ 122 003e 0648     		ldr	r0, .L11+12
+ 123 0040 FFF7FEFF 		bl	printf
+ 124              	.LVL9:
+ 125 0044 EDE7     		b	.L6
+ 126              	.LVL10:
+ 127              	.L9:
+ 128              		.loc 1 32 7 is_stmt 0 view .LVU25
+ 129              	.LBE4:
+ 130              	.LBE2:
+  33:MORSE_ENCODER.c ****     }
+  34:MORSE_ENCODER.c ****   }
+  35:MORSE_ENCODER.c **** }
+ 131              		.loc 1 35 1 view .LVU26
+ 132 0046 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 133              	.LVL11:
+ 134              	.L12:
+ 135              		.loc 1 35 1 view .LVU27
+ 136 004a 00BF     		.align	2
+ 137              	.L11:
+ 138 004c 00000000 		.word	.LC0
+ 139 0050 10000000 		.word	.LC2
+ 140 0054 08000000 		.word	.LC1
+ 141 0058 1C000000 		.word	.LC3
+ 142              		.cfi_endproc
+ 143              	.LFE131:
+ 145              		.section	.rodata.str1.4
+ 146 0025 000000   		.align	2
+ 147              	.LC4:
+ 148 0028 6F666620 		.ascii	"off 7u, \000"
+ 148      37752C20 
+ 148      00
+ 149 0031 000000   		.align	2
+ 150              	.LC5:
+ 151 0034 6F666620 		.ascii	"off 3u, \000"
+ 151      33752C20 
+ 151      00
+ 152 003d 000000   		.align	2
+ 153              	.LC6:
+ 154 0040 6F666620 		.ascii	"off 50u, \000"
+ 154      3530752C 
+ 154      2000
+ 155              		.section	.text.ConvertWordToMorseWord,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	ConvertWordToMorseWord
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 162              	ConvertWordToMorseWord:
+ 163              	.LVL12:
+ 164              	.LFB132:
+  36:MORSE_ENCODER.c **** 
+  37:MORSE_ENCODER.c **** // C (-.-.) => ON 3u, OFF 1u, ON 1u, OFF 1u, ON 3u, OFF 1u, ON 1u, then OFF 3u (letter gap)
+  38:MORSE_ENCODER.c **** // A (.-)   => ON 1u, OFF 1u, ON 3u, then OFF 3u (letter gap)
+  39:MORSE_ENCODER.c **** // N (-.)   => ON 3u, OFF 1u, ON 1u, then OFF 7u (word gap)
+  40:MORSE_ENCODER.c **** void ConvertWordToMorseWord(const char* word) 
+  41:MORSE_ENCODER.c **** {
+ 165              		.loc 1 41 1 is_stmt 1 view -0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 1, uses_anonymous_args = 0
+ 169              		.loc 1 41 1 is_stmt 0 view .LVU29
+ 170 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 171              	.LCFI2:
+ 172              		.cfi_def_cfa_offset 32
+ 173              		.cfi_offset 3, -32
+ 174              		.cfi_offset 4, -28
+ 175              		.cfi_offset 5, -24
+ 176              		.cfi_offset 6, -20
+ 177              		.cfi_offset 7, -16
+ 178              		.cfi_offset 8, -12
+ 179              		.cfi_offset 9, -8
+ 180              		.cfi_offset 14, -4
+ 181 0004 00AF     		add	r7, sp, #0
+ 182              	.LCFI3:
+ 183              		.cfi_def_cfa_register 7
+ 184 0006 0646     		mov	r6, r0
+  42:MORSE_ENCODER.c ****   // Word = I CAN MORSE
+  43:MORSE_ENCODER.c ****   for (uint32_t i = 0; i <= strlen(word); i++)
+ 185              		.loc 1 43 3 is_stmt 1 view .LVU30
+ 186              	.LBB5:
+ 187              		.loc 1 43 8 view .LVU31
+ 188              	.LVL13:
+ 189              		.loc 1 43 17 is_stmt 0 view .LVU32
+ 190 0008 0025     		movs	r5, #0
+ 191              		.loc 1 43 3 view .LVU33
+ 192 000a 0AE0     		b	.L14
+ 193              	.LVL14:
+ 194              	.L16:
+ 195              	.LBB6:
+  44:MORSE_ENCODER.c ****   {
+  45:MORSE_ENCODER.c ****     if (i != strlen(word))
+  46:MORSE_ENCODER.c ****     {
+  47:MORSE_ENCODER.c ****       const char* character_morse_equivalent = NULL;
+  48:MORSE_ENCODER.c ****       uint32_t letter_ascii_id = (unsigned char)word[i];
+  49:MORSE_ENCODER.c ****       bool is_next_letter_space = (word[i+1] == ' ');
+  50:MORSE_ENCODER.c ****       bool is_next_letter_eof = (i == strlen(word) - 1);
+  51:MORSE_ENCODER.c ****       bool is_letter_ascii_id_valid = (
+  52:MORSE_ENCODER.c ****                                         (letter_ascii_id >= 65 && letter_ascii_id <= 90) || // A-Z
+  53:MORSE_ENCODER.c ****                                         (letter_ascii_id >= 48 && letter_ascii_id <= 57) || // 0-9
+  54:MORSE_ENCODER.c ****                                         (letter_ascii_id == 32)                             // "0"
+  55:MORSE_ENCODER.c ****                                       );
+  56:MORSE_ENCODER.c **** 
+  57:MORSE_ENCODER.c ****       if (is_letter_ascii_id_valid)
+  58:MORSE_ENCODER.c ****       {
+  59:MORSE_ENCODER.c ****         character_morse_equivalent = MORSE_ALPHABET[letter_ascii_id];
+ 196              		.loc 1 59 9 is_stmt 1 view .LVU34
+  60:MORSE_ENCODER.c ****         SendLetterFromMorseWord(character_morse_equivalent);
+ 197              		.loc 1 60 9 view .LVU35
+ 198 000c 184A     		ldr	r2, .L24
+ 199 000e 52F82300 		ldr	r0, [r2, r3, lsl #2]
+ 200 0012 FFF7FEFF 		bl	SendLetterFromMorseWord
+ 201              	.LVL15:
+  61:MORSE_ENCODER.c **** 
+  62:MORSE_ENCODER.c ****         if (is_next_letter_space)
+ 202              		.loc 1 62 9 view .LVU36
+ 203              		.loc 1 62 12 is_stmt 0 view .LVU37
+ 204 0016 B9F1200F 		cmp	r9, #32
+ 205 001a 1AD0     		beq	.L21
+  63:MORSE_ENCODER.c ****         {
+  64:MORSE_ENCODER.c ****           i++;
+  65:MORSE_ENCODER.c ****           // OFF LIGHT 700ms (WORD_GAP)
+  66:MORSE_ENCODER.c ****           printf("off 7u, ");
+  67:MORSE_ENCODER.c ****         }        
+  68:MORSE_ENCODER.c ****         else if (is_next_letter_eof == false)
+ 206              		.loc 1 68 14 is_stmt 1 view .LVU38
+ 207              		.loc 1 68 17 is_stmt 0 view .LVU39
+ 208 001c AC42     		cmp	r4, r5
+ 209 001e 1DD1     		bne	.L22
+ 210              	.LVL16:
+ 211              	.L17:
+ 212              		.loc 1 68 17 view .LVU40
+ 213              	.LBE6:
+  43:MORSE_ENCODER.c ****   {
+ 214              		.loc 1 43 44 is_stmt 1 discriminator 2 view .LVU41
+ 215 0020 0135     		adds	r5, r5, #1
+ 216              	.LVL17:
+ 217              	.L14:
+  43:MORSE_ENCODER.c ****   {
+ 218              		.loc 1 43 26 discriminator 1 view .LVU42
+  43:MORSE_ENCODER.c ****   {
+ 219              		.loc 1 43 29 is_stmt 0 discriminator 1 view .LVU43
+ 220 0022 3046     		mov	r0, r6
+ 221 0024 FFF7FEFF 		bl	strlen
+ 222              	.LVL18:
+  43:MORSE_ENCODER.c ****   {
+ 223              		.loc 1 43 26 discriminator 1 view .LVU44
+ 224 0028 A842     		cmp	r0, r5
+ 225 002a 1FD3     		bcc	.L23
+  45:MORSE_ENCODER.c ****     {
+ 226              		.loc 1 45 5 is_stmt 1 view .LVU45
+  45:MORSE_ENCODER.c ****     {
+ 227              		.loc 1 45 8 is_stmt 0 discriminator 1 view .LVU46
+ 228 002c A842     		cmp	r0, r5
+ 229 002e 19D0     		beq	.L15
+ 230              	.LBB7:
+  47:MORSE_ENCODER.c ****       uint32_t letter_ascii_id = (unsigned char)word[i];
+ 231              		.loc 1 47 7 is_stmt 1 view .LVU47
+ 232              	.LVL19:
+  48:MORSE_ENCODER.c ****       bool is_next_letter_space = (word[i+1] == ' ');
+ 233              		.loc 1 48 7 view .LVU48
+  48:MORSE_ENCODER.c ****       bool is_next_letter_space = (word[i+1] == ' ');
+ 234              		.loc 1 48 53 is_stmt 0 view .LVU49
+ 235 0030 735D     		ldrb	r3, [r6, r5]	@ zero_extendqisi2
+ 236              	.LVL20:
+  49:MORSE_ENCODER.c ****       bool is_next_letter_eof = (i == strlen(word) - 1);
+ 237              		.loc 1 49 7 is_stmt 1 view .LVU50
+  49:MORSE_ENCODER.c ****       bool is_next_letter_eof = (i == strlen(word) - 1);
+ 238              		.loc 1 49 40 is_stmt 0 view .LVU51
+ 239 0032 05F10108 		add	r8, r5, #1
+ 240 0036 16F80890 		ldrb	r9, [r6, r8]	@ zero_extendqisi2
+ 241              	.LVL21:
+  50:MORSE_ENCODER.c ****       bool is_letter_ascii_id_valid = (
+ 242              		.loc 1 50 7 is_stmt 1 view .LVU52
+  50:MORSE_ENCODER.c ****       bool is_letter_ascii_id_valid = (
+ 243              		.loc 1 50 52 is_stmt 0 discriminator 1 view .LVU53
+ 244 003a 441E     		subs	r4, r0, #1
+ 245              	.LVL22:
+  51:MORSE_ENCODER.c ****                                         (letter_ascii_id >= 65 && letter_ascii_id <= 90) || // A-Z
+ 246              		.loc 1 51 7 is_stmt 1 view .LVU54
+  52:MORSE_ENCODER.c ****                                         (letter_ascii_id >= 48 && letter_ascii_id <= 57) || // 0-9
+ 247              		.loc 1 52 64 is_stmt 0 view .LVU55
+ 248 003c A3F14102 		sub	r2, r3, #65
+  53:MORSE_ENCODER.c ****                                         (letter_ascii_id == 32)                             // "0"
+ 249              		.loc 1 53 90 view .LVU56
+ 250 0040 192A     		cmp	r2, #25
+ 251 0042 E3D9     		bls	.L16
+  53:MORSE_ENCODER.c ****                                         (letter_ascii_id == 32)                             // "0"
+ 252              		.loc 1 53 64 discriminator 2 view .LVU57
+ 253 0044 A3F13002 		sub	r2, r3, #48
+  52:MORSE_ENCODER.c ****                                         (letter_ascii_id >= 48 && letter_ascii_id <= 57) || // 0-9
+ 254              		.loc 1 52 90 view .LVU58
+ 255 0048 092A     		cmp	r2, #9
+ 256 004a DFD9     		bls	.L16
+  53:MORSE_ENCODER.c ****                                         (letter_ascii_id == 32)                             // "0"
+ 257              		.loc 1 53 90 discriminator 3 view .LVU59
+ 258 004c 202B     		cmp	r3, #32
+ 259 004e E7D1     		bne	.L17
+ 260 0050 DCE7     		b	.L16
+ 261              	.LVL23:
+ 262              	.L21:
+  64:MORSE_ENCODER.c ****           // OFF LIGHT 700ms (WORD_GAP)
+ 263              		.loc 1 64 11 is_stmt 1 view .LVU60
+  66:MORSE_ENCODER.c ****         }        
+ 264              		.loc 1 66 11 view .LVU61
+ 265 0052 0848     		ldr	r0, .L24+4
+ 266 0054 FFF7FEFF 		bl	printf
+ 267              	.LVL24:
+  64:MORSE_ENCODER.c ****           // OFF LIGHT 700ms (WORD_GAP)
+ 268              		.loc 1 64 12 is_stmt 0 view .LVU62
+ 269 0058 4546     		mov	r5, r8
+ 270              	.LVL25:
+  64:MORSE_ENCODER.c ****           // OFF LIGHT 700ms (WORD_GAP)
+ 271              		.loc 1 64 12 view .LVU63
+ 272 005a E1E7     		b	.L17
+ 273              	.LVL26:
+ 274              	.L22:
+  69:MORSE_ENCODER.c ****         {
+  70:MORSE_ENCODER.c ****           // OFF LIGHT 300ms (LETTER_GAP)
+  71:MORSE_ENCODER.c ****           printf("off 3u, ");
+ 275              		.loc 1 71 11 is_stmt 1 view .LVU64
+ 276 005c 0648     		ldr	r0, .L24+8
+ 277 005e FFF7FEFF 		bl	printf
+ 278              	.LVL27:
+ 279 0062 DDE7     		b	.L17
+ 280              	.LVL28:
+ 281              	.L15:
+ 282              		.loc 1 71 11 is_stmt 0 view .LVU65
+ 283              	.LBE7:
+  72:MORSE_ENCODER.c ****         }
+  73:MORSE_ENCODER.c ****       }
+  74:MORSE_ENCODER.c ****     }
+  75:MORSE_ENCODER.c ****     else 
+  76:MORSE_ENCODER.c ****     {
+  77:MORSE_ENCODER.c ****       // OFF LIGHT 5000ms (SENTENCE_GAP)
+  78:MORSE_ENCODER.c ****       printf("off 50u, ");
+ 284              		.loc 1 78 7 is_stmt 1 view .LVU66
+ 285 0064 0548     		ldr	r0, .L24+12
+ 286 0066 FFF7FEFF 		bl	printf
+ 287              	.LVL29:
+ 288 006a D9E7     		b	.L17
+ 289              	.L23:
+ 290              	.LBE5:
+  79:MORSE_ENCODER.c ****     }
+  80:MORSE_ENCODER.c ****   }
+  81:MORSE_ENCODER.c **** } ...
+ 291              		.loc 1 81 1 is_stmt 0 view .LVU67
+ 292 006c BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 293              	.LVL30:
+ 294              	.L25:
+ 295              		.loc 1 81 1 view .LVU68
+ 296              		.align	2
+ 297              	.L24:
+ 298 0070 00000000 		.word	.LANCHOR0
+ 299 0074 28000000 		.word	.LC4
+ 300 0078 34000000 		.word	.LC5
+ 301 007c 40000000 		.word	.LC6
+ 302              		.cfi_endproc
+ 303              	.LFE132:
+ 305              		.section	.rodata.str1.4
+ 306 004a 0000     		.align	2
+ 307              	.LC7:
+ 308 004c 2000     		.ascii	" \000"
+ 309 004e 0000     		.align	2
+ 310              	.LC8:
+ 311 0050 2D2D2D2D 		.ascii	"-----\000"
+ 311      2D00
+ 312 0056 0000     		.align	2
+ 313              	.LC9:
+ 314 0058 2E2D2D2D 		.ascii	".----\000"
+ 314      2D00
+ 315 005e 0000     		.align	2
+ 316              	.LC10:
+ 317 0060 2E2E2D2D 		.ascii	"..---\000"
+ 317      2D00
+ 318 0066 0000     		.align	2
+ 319              	.LC11:
+ 320 0068 2E2E2E2D 		.ascii	"...--\000"
+ 320      2D00
+ 321 006e 0000     		.align	2
+ 322              	.LC12:
+ 323 0070 2E2E2E2E 		.ascii	"....-\000"
+ 323      2D00
+ 324 0076 0000     		.align	2
+ 325              	.LC13:
+ 326 0078 2E2E2E2E 		.ascii	".....\000"
+ 326      2E00
+ 327 007e 0000     		.align	2
+ 328              	.LC14:
+ 329 0080 2D2E2E2E 		.ascii	"-....\000"
+ 329      2E00
+ 330 0086 0000     		.align	2
+ 331              	.LC15:
+ 332 0088 2D2D2E2E 		.ascii	"--...\000"
+ 332      2E00
+ 333 008e 0000     		.align	2
+ 334              	.LC16:
+ 335 0090 2D2D2D2E 		.ascii	"---..\000"
+ 335      2E00
+ 336 0096 0000     		.align	2
+ 337              	.LC17:
+ 338 0098 2D2D2D2D 		.ascii	"----.\000"
+ 338      2E00
+ 339 009e 0000     		.align	2
+ 340              	.LC18:
+ 341 00a0 2E2D00   		.ascii	".-\000"
+ 342 00a3 00       		.align	2
+ 343              	.LC19:
+ 344 00a4 2D2E2E2E 		.ascii	"-...\000"
+ 344      00
+ 345 00a9 000000   		.align	2
+ 346              	.LC20:
+ 347 00ac 2D2E2D2E 		.ascii	"-.-.\000"
+ 347      00
+ 348 00b1 000000   		.align	2
+ 349              	.LC21:
+ 350 00b4 2D2E2E00 		.ascii	"-..\000"
+ 351              		.align	2
+ 352              	.LC22:
+ 353 00b8 2E00     		.ascii	".\000"
+ 354 00ba 0000     		.align	2
+ 355              	.LC23:
+ 356 00bc 2E2E2D2E 		.ascii	"..-.\000"
+ 356      00
+ 357 00c1 000000   		.align	2
+ 358              	.LC24:
+ 359 00c4 2D2D2E00 		.ascii	"--.\000"
+ 360              		.align	2
+ 361              	.LC25:
+ 362 00c8 2E2E2E2E 		.ascii	"....\000"
+ 362      00
+ 363 00cd 000000   		.align	2
+ 364              	.LC26:
+ 365 00d0 2E2E00   		.ascii	"..\000"
+ 366 00d3 00       		.align	2
+ 367              	.LC27:
+ 368 00d4 2E2D2D2D 		.ascii	".---\000"
+ 368      00
+ 369 00d9 000000   		.align	2
+ 370              	.LC28:
+ 371 00dc 2D2E2D00 		.ascii	"-.-\000"
+ 372              		.align	2
+ 373              	.LC29:
+ 374 00e0 2E2D2E2E 		.ascii	".-..\000"
+ 374      00
+ 375 00e5 000000   		.align	2
+ 376              	.LC30:
+ 377 00e8 2D2D00   		.ascii	"--\000"
+ 378 00eb 00       		.align	2
+ 379              	.LC31:
+ 380 00ec 2D2E00   		.ascii	"-.\000"
+ 381 00ef 00       		.align	2
+ 382              	.LC32:
+ 383 00f0 2D2D2D00 		.ascii	"---\000"
+ 384              		.align	2
+ 385              	.LC33:
+ 386 00f4 2E2D2D2E 		.ascii	".--.\000"
+ 386      00
+ 387 00f9 000000   		.align	2
+ 388              	.LC34:
+ 389 00fc 2D2D2E2D 		.ascii	"--.-\000"
+ 389      00
+ 390 0101 000000   		.align	2
+ 391              	.LC35:
+ 392 0104 2E2D2E00 		.ascii	".-.\000"
+ 393              		.align	2
+ 394              	.LC36:
+ 395 0108 2E2E2E00 		.ascii	"...\000"
+ 396              		.align	2
+ 397              	.LC37:
+ 398 010c 2D00     		.ascii	"-\000"
+ 399 010e 0000     		.align	2
+ 400              	.LC38:
+ 401 0110 2E2E2D00 		.ascii	"..-\000"
+ 402              		.align	2
+ 403              	.LC39:
+ 404 0114 2E2E2E2D 		.ascii	"...-\000"
+ 404      00
+ 405 0119 000000   		.align	2
+ 406              	.LC40:
+ 407 011c 2E2D2D00 		.ascii	".--\000"
+ 408              		.align	2
+ 409              	.LC41:
+ 410 0120 2D2E2E2D 		.ascii	"-..-\000"
+ 410      00
+ 411 0125 000000   		.align	2
+ 412              	.LC42:
+ 413 0128 2D2E2D2D 		.ascii	"-.--\000"
+ 413      00
+ 414 012d 000000   		.align	2
+ 415              	.LC43:
+ 416 0130 2D2D2E2E 		.ascii	"--..\000"
+ 416      00
+ 417              		.section	.rodata
+ 418              		.align	2
+ 419              		.set	.LANCHOR0,. + 0
+ 422              	MORSE_ALPHABET:
+ 423 0000 00000000 		.space	128
+ 423      00000000 
+ 423      00000000 
+ 423      00000000 
+ 423      00000000 
+ 424 0080 4C000000 		.word	.LC7
+ 425 0084 00000000 		.space	60
+ 425      00000000 
+ 425      00000000 
+ 425      00000000 
+ 425      00000000 
+ 426 00c0 50000000 		.word	.LC8
+ 427 00c4 58000000 		.word	.LC9
+ 428 00c8 60000000 		.word	.LC10
+ 429 00cc 68000000 		.word	.LC11
+ 430 00d0 70000000 		.word	.LC12
+ 431 00d4 78000000 		.word	.LC13
+ 432 00d8 80000000 		.word	.LC14
+ 433 00dc 88000000 		.word	.LC15
+ 434 00e0 90000000 		.word	.LC16
+ 435 00e4 98000000 		.word	.LC17
+ 436 00e8 00000000 		.space	28
+ 436      00000000 
+ 436      00000000 
+ 436      00000000 
+ 436      00000000 
+ 437 0104 A0000000 		.word	.LC18
+ 438 0108 A4000000 		.word	.LC19
+ 439 010c AC000000 		.word	.LC20
+ 440 0110 B4000000 		.word	.LC21
+ 441 0114 B8000000 		.word	.LC22
+ 442 0118 BC000000 		.word	.LC23
+ 443 011c C4000000 		.word	.LC24
+ 444 0120 C8000000 		.word	.LC25
+ 445 0124 D0000000 		.word	.LC26
+ 446 0128 D4000000 		.word	.LC27
+ 447 012c DC000000 		.word	.LC28
+ 448 0130 E0000000 		.word	.LC29
+ 449 0134 E8000000 		.word	.LC30
+ 450 0138 EC000000 		.word	.LC31
+ 451 013c F0000000 		.word	.LC32
+ 452 0140 F4000000 		.word	.LC33
+ 453 0144 FC000000 		.word	.LC34
+ 454 0148 04010000 		.word	.LC35
+ 455 014c 08010000 		.word	.LC36
+ 456 0150 0C010000 		.word	.LC37
+ 457 0154 10010000 		.word	.LC38
+ 458 0158 14010000 		.word	.LC39
+ 459 015c 1C010000 		.word	.LC40
+ 460 0160 20010000 		.word	.LC41
+ 461 0164 28010000 		.word	.LC42
+ 462 0168 30010000 		.word	.LC43
+ 463              		.text
+ 464              	.Letext0:
+ 465              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
+ 466              		.file 3 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
+ 467              		.file 4 "/usr/include/newlib/stdio.h"
+ 468              		.file 5 "/usr/include/newlib/string.h"
+ 469              		.file 6 "MORSE_ALPHABET.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 MORSE_ENCODER.c
+     /tmp/ccgkiGSv.s:20     .rodata.str1.4:00000000 $d
+     /tmp/ccgkiGSv.s:33     .text.SendLetterFromMorseWord:00000000 $t
+     /tmp/ccgkiGSv.s:39     .text.SendLetterFromMorseWord:00000000 SendLetterFromMorseWord
+     /tmp/ccgkiGSv.s:138    .text.SendLetterFromMorseWord:0000004c $d
+     /tmp/ccgkiGSv.s:156    .text.ConvertWordToMorseWord:00000000 $t
+     /tmp/ccgkiGSv.s:162    .text.ConvertWordToMorseWord:00000000 ConvertWordToMorseWord
+     /tmp/ccgkiGSv.s:298    .text.ConvertWordToMorseWord:00000070 $d
+     /tmp/ccgkiGSv.s:418    .rodata:00000000 $d
+     /tmp/ccgkiGSv.s:422    .rodata:00000000 MORSE_ALPHABET
+                           .group:00000000 wm4.0.eca5e4c8f76cf8ead8dbeb0f481279d1
+                           .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
+                           .group:00000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
+                           .group:00000000 wm4.stdbool.h.29.c08aa3eec75cf5b9b5003883f43253f0
+                           .group:00000000 wm4._newlib_version.h.4.411db44ea2338a62eca2f0777f81481b
+                           .group:00000000 wm4.newlib.h.27.07bf1b8b16da454ae07478107717878b
+                           .group:00000000 wm4.ieeefp.h.77.5ad60f72ea25fc152400b550ac118212
+                           .group:00000000 wm4.features.h.22.c11ecc6cb8b914ead0c0895c00b4b4d5
+                           .group:00000000 wm4.config.h.224.10ee1ad185d877c6e334e6581faab44d
+                           .group:00000000 wm4._ansi.h.31.de524f58584151836e90d8620a16f8e8
+                           .group:00000000 wm4._default_types.h.6.959254cf5f09734ea7516c89e8bb21bd
+                           .group:00000000 wm4.cdefs.h.49.a0dc0a4a6c7d01e2e5d0aade9399215f
+                           .group:00000000 wm4._types.h.20.dd0d04dca3800a0d2a6129b87f3adbb2
+                           .group:00000000 wm4.stddef.h.158.6f8e08a347b1cff664332fa350bfceb3
+                           .group:00000000 wm4._types.h.127.3bdfe3ff8ea2d0985b03d9cbe93480e3
+                           .group:00000000 wm4.reent.h.18.25503cdc8b7e55dd0d6ea7b3e5af7a03
+                           .group:00000000 wm4.lock.h.2.c0958401bd0ce484d507ee19aacab817
+                           .group:00000000 wm4.reent.h.78.7f0775353a33c852a1479c008f68cd03
+                           .group:00000000 wm4.string.h.15.dab3980bf35408a4c507182805e2de3a
+                           .group:00000000 wm4.stddef.h.158.eec8bf00b5213f43d095cb984c5f22e3
+                           .group:00000000 wm4.xmc_device.h.61.ba2d082e12f51240746cffdd60d42b81
+                           .group:00000000 wm4.XMC4500.h.55.9aa45b9b5790506b2dcb963e4e7adeaf
+                           .group:00000000 wm4.core_cm4.h.32.6c6eb1c8daeca23ce7ba79c8e8120d52
+                           .group:00000000 wm4.cmsis_gcc.h.26.91b63349961c35637933e4fba51b867b
+                           .group:00000000 wm4.core_cm4.h.172.fdd5a388a160bb6ff767b7d7ee212268
+                           .group:00000000 wm4.system_XMC4500.h.42.99124977c10ca8844a71949adbeabd70
+                           .group:00000000 wm4.XMC4500.h.208.b340195df97f067735c4c769ba59985a
+                           .group:00000000 wm4.xmc_device.h.1460.8860499b404961ffcfbb8d1fefcb2146
+                           .group:00000000 wm4.xmc_common.h.92.3f4336a80569affab05a81145b87c2fc
+                           .group:00000000 wm4.stdio.h.27.3fc80220048df77954e38daec3bb9670
+                           .group:00000000 wm4.stdarg.h.34.3a23a216c0c293b3d2ea2e89281481e6
+                           .group:00000000 wm4.stdio.h.47.dc31ec4674d7bcb103c9f08809549f45
+                           .group:00000000 wm4.stdio.h.2.4aa87247282eca6c8f36f9de33d8df1a
+                           .group:00000000 wm4.stdio.h.87.a1e20d2651f9bfb66e51bfbe849db00a
+                           .group:00000000 wm4.MORSE_ENCODER.h.2.e49c77f1e726ace5bba8c5a495da1753
+
+UNDEFINED SYMBOLS
+strlen
+printf
