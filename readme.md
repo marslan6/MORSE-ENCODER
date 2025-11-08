@@ -78,7 +78,8 @@ Example `c_cpp_properties.json` for IntelliSense. Update include paths and defin
 Run these from your workspace root (adjust path if workspace is the `MORSE_TIME` folder):
 
 ```bash
-cd ${workspaceFolder}/MORSE_TIME
+cd ${workspaceFolder}/MORSE_TIME  
+make clean
 make
 make program    # flash to Cortex-M4 (non-debug)
 ```
