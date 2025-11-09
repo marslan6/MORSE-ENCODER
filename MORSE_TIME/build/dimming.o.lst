@@ -16,272 +16,385 @@
   16              	.Ltext0:
   17              		.cfi_sections	.debug_frame
   18              		.file 1 "dimming.c"
-  19              		.section	.rodata.str1.4,"aMS",%progbits,1
-  20              		.align	2
-  21              	.LC0:
-  22 0000 55415254 		.ascii	"UART ready @115200\015\000"
-  22      20726561 
-  22      64792040 
-  22      31313532 
-  22      30300D00 
-  23              		.align	2
-  24              	.LC1:
-  25 0014 49204341 		.ascii	"I CAN MORSE\000"
-  25      4E204D4F 
-  25      52534500 
-  26              		.section	.text.main,"ax",%progbits
-  27              		.align	1
-  28              		.global	main
-  29              		.syntax unified
-  30              		.thumb
-  31              		.thumb_func
-  33              	main:
-  34              	.LFB131:
+  19              		.section	.text.ITM_Init,"ax",%progbits
+  20              		.align	1
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	ITM_Init:
+  26              	.LFB132:
    1:dimming.c     **** #include <xmc_common.h>
    2:dimming.c     **** #include <stdio.h>
    3:dimming.c     **** 
    4:dimming.c     **** #include "MORSE_ALPHABET.h"
    5:dimming.c     **** #include "MORSE_ENCODER.h"
    6:dimming.c     **** 
-   7:dimming.c     **** void initCCU4(void);
-   8:dimming.c     **** void connectLED(void);
-   9:dimming.c     **** 
-  10:dimming.c     **** /*
-  11:dimming.c     ****   const XMC_GPIO_CONFIG_t LED_config = \
-  12:dimming.c     ****         {.mode=XMC_GPIO_MODE_OUTPUT_PUSH_PULL,\
-  13:dimming.c     ****          .output_level=XMC_GPIO_OUTPUT_LEVEL_LOW,\
-  14:dimming.c     ****          .output_strength=XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE};
+   7:dimming.c     **** /*
+   8:dimming.c     ****   const XMC_GPIO_CONFIG_t LED_config = \
+   9:dimming.c     ****         {.mode=XMC_GPIO_MODE_OUTPUT_PUSH_PULL,\
+  10:dimming.c     ****          .output_level=XMC_GPIO_OUTPUT_LEVEL_LOW,\
+  11:dimming.c     ****          .output_strength=XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE};
+  12:dimming.c     **** 
+  13:dimming.c     ****   XMC_GPIO_Init(XMC_GPIO_PORT1, 0, &LED_config);
+  14:dimming.c     **** */
   15:dimming.c     **** 
-  16:dimming.c     ****   XMC_GPIO_Init(XMC_GPIO_PORT1, 0, &LED_config);
-  17:dimming.c     **** */
-  18:dimming.c     **** 
-  19:dimming.c     **** int main(void) 
-  20:dimming.c     **** {
-  35              		.loc 1 20 1 view -0
-  36              		.cfi_startproc
-  37              		@ args = 0, pretend = 0, frame = 0
-  38              		@ frame_needed = 1, uses_anonymous_args = 0
-  39 0000 80B5     		push	{r7, lr}
-  40              	.LCFI0:
-  41              		.cfi_def_cfa_offset 8
-  42              		.cfi_offset 7, -8
-  43              		.cfi_offset 14, -4
-  44 0002 00AF     		add	r7, sp, #0
-  45              	.LCFI1:
-  46              		.cfi_def_cfa_register 7
-  21:dimming.c     ****   // initCCU4();
-  22:dimming.c     ****   const char* word = "I CAN MORSE";
-  47              		.loc 1 22 3 view .LVU1
-  48              	.LVL0:
-  23:dimming.c     ****   printf("UART ready @115200\r\n");
-  49              		.loc 1 23 3 view .LVU2
-  50 0004 0348     		ldr	r0, .L4
-  51 0006 FFF7FEFF 		bl	puts
-  52              	.LVL1:
-  24:dimming.c     ****   ConvertWordToMorseWord(word);
-  53              		.loc 1 24 3 view .LVU3
-  54 000a 0348     		ldr	r0, .L4+4
-  55 000c FFF7FEFF 		bl	ConvertWordToMorseWord
-  56              	.LVL2:
-  57              	.L2:
-  25:dimming.c     **** 
-  26:dimming.c     ****   while(1);
-  58              		.loc 1 26 3 view .LVU4
-  59              		.loc 1 26 8 view .LVU5
-  60 0010 FEE7     		b	.L2
-  61              	.L5:
-  62 0012 00BF     		.align	2
-  63              	.L4:
-  64 0014 00000000 		.word	.LC0
-  65 0018 14000000 		.word	.LC1
-  66              		.cfi_endproc
-  67              	.LFE131:
-  69              		.section	.text.connectLED,"ax",%progbits
-  70              		.align	1
-  71              		.global	connectLED
-  72              		.syntax unified
-  73              		.thumb
-  74              		.thumb_func
-  76              	connectLED:
-  77              	.LFB133:
-  27:dimming.c     ****   return 0;
-  28:dimming.c     **** }
-  29:dimming.c     **** 
-  30:dimming.c     **** void initCCU4(void) 
-  31:dimming.c     **** {
-  32:dimming.c     ****   /* Release CCU4 instance 0 from reset*/
-  33:dimming.c     ****   SCU_RESET->PRCLR0 = SCU_RESET_PRCLR0_CCU40RS_Msk;
-  34:dimming.c     ****   /* Enable clock to CCUs*/
-  35:dimming.c     ****   SCU_CLK->CLKSET = SCU_CLK_CLKSET_CCUCEN_Msk;
-  36:dimming.c     ****   /* Enable prescaler in CCU4 instance 0*/
-  37:dimming.c     ****   CCU40->GIDLC = CCU4_GIDLC_SPRB_Msk;
-  38:dimming.c     ****   /* Configure period and compare in CCU4 instance 0 slice 2*/
-  39:dimming.c     ****   CCU40_CC42->PRS = 0xFFFF;
-  40:dimming.c     ****   CCU40_CC42->CRS = (1 - 0.01) * 0xFFFF;
-  41:dimming.c     ****   /* Request shadow transfer for CCU4 instance 0 slice 2*/
-  42:dimming.c     ****   CCU40->GCSS = CCU4_GCSS_S2SE_Msk;
-  43:dimming.c     ****   /* Connect LED1 to CCU40.OUT2 */
-  44:dimming.c     ****   connectLED();
-  45:dimming.c     ****   /* Enable timer slice 2 in CCU4 instance 0*/
-  46:dimming.c     ****   CCU40->GIDLC = CCU4_GIDLC_CS2I_Msk;
-  47:dimming.c     ****   /* Start slice 2 in CCU4 instance 0 by setting run bit*/
-  48:dimming.c     ****   CCU40_CC42->TCSET = CCU4_CC4_TCSET_TRBS_Msk;
-  49:dimming.c     **** }
+  16:dimming.c     **** static void ITM_Init(void);
+  17:dimming.c     **** void initCCU4(void);
+  18:dimming.c     **** void connectLED(void);
+  19:dimming.c     **** 
+  20:dimming.c     **** int main(void) 
+  21:dimming.c     **** {
+  22:dimming.c     ****   // Initialize ITM for printf over SWO (before any printf calls)
+  23:dimming.c     ****   ITM_Init();
+  24:dimming.c     ****   
+  25:dimming.c     ****   const char* word = "I CAN MORSE";
+  26:dimming.c     ****   printf("ITM printf ready over SWO!\r\n");
+  27:dimming.c     **** 
+  28:dimming.c     ****   while(1)
+  29:dimming.c     ****   {
+  30:dimming.c     ****     ConvertWordToMorseWord(word);
+  31:dimming.c     ****   }
+  32:dimming.c     ****   return 0;
+  33:dimming.c     **** }
+  34:dimming.c     **** 
+  35:dimming.c     **** /* ----------------------------------------------------------------------------
+  36:dimming.c     ****  * ITM initialization for printf over SWO (Serial Wire Output)
+  37:dimming.c     ****  *  - Enables tracing in CoreDebug
+  38:dimming.c     ****  *  - Configures ITM (stimulus port 0, control bits)
+  39:dimming.c     ****  *  - Sets up TPIU for NRZ SWO at ~2 MHz (assumes 120 MHz sysclk)
+  40:dimming.c     ****  * ---------------------------------------------------------------------------*/
+  41:dimming.c     **** static void ITM_Init(void)
+  42:dimming.c     **** {
+  27              		.loc 1 42 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 00AF     		add	r7, sp, #0
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_register 7
+  43:dimming.c     ****   /* ---------------- CoreDebug: enable trace ---------------- */
+  44:dimming.c     ****   /* Enable TRCENA (Trace Enable) in Debug Exception and Monitor Control Register */
+  45:dimming.c     ****   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+  39              		.loc 1 45 3 view .LVU1
+  40              		.loc 1 45 12 is_stmt 0 view .LVU2
+  41 0004 0E4A     		ldr	r2, .L3
+  42 0006 D2F8FC30 		ldr	r3, [r2, #252]
+  43              		.loc 1 45 20 view .LVU3
+  44 000a 43F08073 		orr	r3, r3, #16777216
+  45 000e C2F8FC30 		str	r3, [r2, #252]
+  46:dimming.c     **** 
+  47:dimming.c     ****   /* ---------------- ITM stimulus ports --------------------- */
+  48:dimming.c     ****   /* Enable stimulus port 0 (bit 0 in TER) */
+  49:dimming.c     ****   ITM->TER = 1UL;
+  46              		.loc 1 49 3 is_stmt 1 view .LVU4
+  47              		.loc 1 49 12 is_stmt 0 view .LVU5
+  48 0012 4FF06043 		mov	r3, #-536870912
+  49 0016 0122     		movs	r2, #1
+  50 0018 C3F8002E 		str	r2, [r3, #3584]
   50:dimming.c     **** 
-  51:dimming.c     **** void connectLED(void) 
-  52:dimming.c     **** {
-  78              		.loc 1 52 1 view -0
-  79              		.cfi_startproc
-  80              		@ args = 0, pretend = 0, frame = 0
-  81              		@ frame_needed = 1, uses_anonymous_args = 0
-  82              		@ link register save eliminated.
-  83 0000 80B4     		push	{r7}
-  84              	.LCFI2:
-  85              		.cfi_def_cfa_offset 4
-  86              		.cfi_offset 7, -4
-  87 0002 00AF     		add	r7, sp, #0
-  88              	.LCFI3:
-  89              		.cfi_def_cfa_register 7
-  53:dimming.c     ****   /* Bit mask for alternate function 3 with push-pull output */
-  54:dimming.c     ****   static const uint8_t PP_ALT3 = 0b10011;
-  90              		.loc 1 54 3 view .LVU7
-  55:dimming.c     ****   PORT1->IOCR0 = (PORT1->IOCR0 & ~PORT1_IOCR0_PC1_Msk) | (PP_ALT3 << PORT1_IOCR0_PC1_Pos);
-  91              		.loc 1 55 3 view .LVU8
-  92              		.loc 1 55 24 is_stmt 0 view .LVU9
-  93 0004 054A     		ldr	r2, .L8
-  94 0006 1369     		ldr	r3, [r2, #16]
-  95              		.loc 1 55 32 view .LVU10
-  96 0008 23F47843 		bic	r3, r3, #63488
-  97              		.loc 1 55 56 view .LVU11
-  98 000c 43F41843 		orr	r3, r3, #38912
-  99              		.loc 1 55 16 view .LVU12
- 100 0010 1361     		str	r3, [r2, #16]
-  56:dimming.c     **** }
- 101              		.loc 1 56 1 view .LVU13
- 102 0012 BD46     		mov	sp, r7
- 103              	.LCFI4:
- 104              		.cfi_def_cfa_register 13
- 105              		@ sp needed
- 106 0014 5DF8047B 		ldr	r7, [sp], #4
- 107              	.LCFI5:
- 108              		.cfi_restore 7
- 109              		.cfi_def_cfa_offset 0
- 110 0018 7047     		bx	lr
- 111              	.L9:
- 112 001a 00BF     		.align	2
- 113              	.L8:
- 114 001c 00810248 		.word	1208123648
- 115              		.cfi_endproc
- 116              	.LFE133:
- 118              		.section	.text.initCCU4,"ax",%progbits
- 119              		.align	1
- 120              		.global	initCCU4
- 121              		.syntax unified
- 122              		.thumb
- 123              		.thumb_func
- 125              	initCCU4:
- 126              	.LFB132:
-  31:dimming.c     ****   /* Release CCU4 instance 0 from reset*/
- 127              		.loc 1 31 1 is_stmt 1 view -0
- 128              		.cfi_startproc
- 129              		@ args = 0, pretend = 0, frame = 0
- 130              		@ frame_needed = 1, uses_anonymous_args = 0
- 131 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
- 132              	.LCFI6:
- 133              		.cfi_def_cfa_offset 24
- 134              		.cfi_offset 3, -24
- 135              		.cfi_offset 4, -20
- 136              		.cfi_offset 5, -16
- 137              		.cfi_offset 6, -12
- 138              		.cfi_offset 7, -8
- 139              		.cfi_offset 14, -4
- 140 0002 00AF     		add	r7, sp, #0
- 141              	.LCFI7:
- 142              		.cfi_def_cfa_register 7
-  33:dimming.c     ****   /* Enable clock to CCUs*/
- 143              		.loc 1 33 3 view .LVU15
-  33:dimming.c     ****   /* Enable clock to CCUs*/
- 144              		.loc 1 33 21 is_stmt 0 view .LVU16
- 145 0004 0426     		movs	r6, #4
- 146 0006 0C4B     		ldr	r3, .L12
- 147 0008 5E61     		str	r6, [r3, #20]
-  35:dimming.c     ****   /* Enable prescaler in CCU4 instance 0*/
- 148              		.loc 1 35 3 is_stmt 1 view .LVU17
-  35:dimming.c     ****   /* Enable prescaler in CCU4 instance 0*/
- 149              		.loc 1 35 19 is_stmt 0 view .LVU18
- 150 000a 03F50073 		add	r3, r3, #512
- 151 000e 1022     		movs	r2, #16
- 152 0010 5A60     		str	r2, [r3, #4]
-  37:dimming.c     ****   /* Configure period and compare in CCU4 instance 0 slice 2*/
- 153              		.loc 1 37 3 is_stmt 1 view .LVU19
-  37:dimming.c     ****   /* Configure period and compare in CCU4 instance 0 slice 2*/
- 154              		.loc 1 37 16 is_stmt 0 view .LVU20
- 155 0012 0A4D     		ldr	r5, .L12+4
- 156 0014 4FF48073 		mov	r3, #256
- 157 0018 EB60     		str	r3, [r5, #12]
-  39:dimming.c     ****   CCU40_CC42->CRS = (1 - 0.01) * 0xFFFF;
- 158              		.loc 1 39 3 is_stmt 1 view .LVU21
-  39:dimming.c     ****   CCU40_CC42->CRS = (1 - 0.01) * 0xFFFF;
- 159              		.loc 1 39 19 is_stmt 0 view .LVU22
- 160 001a 094C     		ldr	r4, .L12+8
- 161 001c 4FF6FF72 		movw	r2, #65535
- 162 0020 6263     		str	r2, [r4, #52]
-  40:dimming.c     ****   /* Request shadow transfer for CCU4 instance 0 slice 2*/
- 163              		.loc 1 40 3 is_stmt 1 view .LVU23
-  40:dimming.c     ****   /* Request shadow transfer for CCU4 instance 0 slice 2*/
- 164              		.loc 1 40 19 is_stmt 0 view .LVU24
- 165 0022 4FF66F52 		movw	r2, #64879
- 166 0026 E263     		str	r2, [r4, #60]
-  42:dimming.c     ****   /* Connect LED1 to CCU40.OUT2 */
- 167              		.loc 1 42 3 is_stmt 1 view .LVU25
-  42:dimming.c     ****   /* Connect LED1 to CCU40.OUT2 */
- 168              		.loc 1 42 15 is_stmt 0 view .LVU26
- 169 0028 2B61     		str	r3, [r5, #16]
-  44:dimming.c     ****   /* Enable timer slice 2 in CCU4 instance 0*/
- 170              		.loc 1 44 3 is_stmt 1 view .LVU27
- 171 002a FFF7FEFF 		bl	connectLED
- 172              	.LVL3:
-  46:dimming.c     ****   /* Start slice 2 in CCU4 instance 0 by setting run bit*/
- 173              		.loc 1 46 3 view .LVU28
-  46:dimming.c     ****   /* Start slice 2 in CCU4 instance 0 by setting run bit*/
- 174              		.loc 1 46 16 is_stmt 0 view .LVU29
- 175 002e EE60     		str	r6, [r5, #12]
-  48:dimming.c     **** }
- 176              		.loc 1 48 3 is_stmt 1 view .LVU30
-  48:dimming.c     **** }
- 177              		.loc 1 48 21 is_stmt 0 view .LVU31
- 178 0030 0123     		movs	r3, #1
- 179 0032 E360     		str	r3, [r4, #12]
-  49:dimming.c     **** 
- 180              		.loc 1 49 1 view .LVU32
- 181 0034 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
- 182              	.L13:
- 183 0036 00BF     		.align	2
- 184              	.L12:
- 185 0038 00440050 		.word	1342194688
- 186 003c 00C00040 		.word	1073790976
- 187 0040 00C30040 		.word	1073791744
- 188              		.cfi_endproc
- 189              	.LFE132:
- 191              		.text
- 192              	.Letext0:
- 193              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
- 194              		.file 3 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/CMSIS/Infineon/XMC4500_series/Include/XMC4500.
- 195              		.file 4 "MORSE_ALPHABET.h"
- 196              		.file 5 "MORSE_ENCODER.h"
- 197              		.file 6 "<built-in>"
+  51:dimming.c     ****   /* ---------------- ITM: trace control --------------------- */
+  52:dimming.c     ****   /* ITM enabled, sync enable, DWT event enable, TraceBusID set (nonzero) */
+  53:dimming.c     ****   ITM->TCR = (1UL << ITM_TCR_ITMENA_Pos) |
+  51              		.loc 1 53 3 is_stmt 1 view .LVU6
+  52              		.loc 1 53 12 is_stmt 0 view .LVU7
+  53 001c 094A     		ldr	r2, .L3+4
+  54 001e C3F8802E 		str	r2, [r3, #3712]
+  54:dimming.c     ****              (1UL << ITM_TCR_SYNCENA_Pos) |
+  55:dimming.c     ****              (1UL << ITM_TCR_DWTENA_Pos) |
+  56:dimming.c     ****              (1UL << ITM_TCR_TraceBusID_Pos);
+  57:dimming.c     **** 
+  58:dimming.c     ****   /* ---------------- TPIU: SWO transport -------------------- */
+  59:dimming.c     ****   /* Target SWO baud ≈ 2 MHz: sysclk/(ACPR+1) = 120 MHz / 60 = 2 MHz */
+  60:dimming.c     ****   TPI->ACPR = 59;   /* Asynchronous clock prescaler */
+  55              		.loc 1 60 3 is_stmt 1 view .LVU8
+  56              		.loc 1 60 13 is_stmt 0 view .LVU9
+  57 0022 03F58023 		add	r3, r3, #262144
+  58 0026 3B22     		movs	r2, #59
+  59 0028 1A61     		str	r2, [r3, #16]
+  61:dimming.c     ****   TPI->SPPR = 2;    /* Selected Pin Protocol: 2 = NRZ (UART-style SWO) */
+  60              		.loc 1 61 3 is_stmt 1 view .LVU10
+  61              		.loc 1 61 13 is_stmt 0 view .LVU11
+  62 002a 0222     		movs	r2, #2
+  63 002c C3F8F020 		str	r2, [r3, #240]
+  62:dimming.c     ****   TPI->FFCR = 0x00; /* Formatter disabled for raw ITM packets */
+  64              		.loc 1 62 3 is_stmt 1 view .LVU12
+  65              		.loc 1 62 13 is_stmt 0 view .LVU13
+  66 0030 0022     		movs	r2, #0
+  67 0032 C3F80423 		str	r2, [r3, #772]
+  63:dimming.c     **** }
+  68              		.loc 1 63 1 view .LVU14
+  69 0036 BD46     		mov	sp, r7
+  70              	.LCFI2:
+  71              		.cfi_def_cfa_register 13
+  72              		@ sp needed
+  73 0038 5DF8047B 		ldr	r7, [sp], #4
+  74              	.LCFI3:
+  75              		.cfi_restore 7
+  76              		.cfi_def_cfa_offset 0
+  77 003c 7047     		bx	lr
+  78              	.L4:
+  79 003e 00BF     		.align	2
+  80              	.L3:
+  81 0040 00ED00E0 		.word	-536810240
+  82 0044 0D000100 		.word	65549
+  83              		.cfi_endproc
+  84              	.LFE132:
+  86              		.section	.rodata.str1.4,"aMS",%progbits,1
+  87              		.align	2
+  88              	.LC0:
+  89 0000 49544D20 		.ascii	"ITM printf ready over SWO!\015\000"
+  89      7072696E 
+  89      74662072 
+  89      65616479 
+  89      206F7665 
+  90              		.align	2
+  91              	.LC1:
+  92 001c 49204341 		.ascii	"I CAN MORSE\000"
+  92      4E204D4F 
+  92      52534500 
+  93              		.section	.text.main,"ax",%progbits
+  94              		.align	1
+  95              		.global	main
+  96              		.syntax unified
+  97              		.thumb
+  98              		.thumb_func
+ 100              	main:
+ 101              	.LFB131:
+  21:dimming.c     ****   // Initialize ITM for printf over SWO (before any printf calls)
+ 102              		.loc 1 21 1 is_stmt 1 view -0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 0
+ 105              		@ frame_needed = 1, uses_anonymous_args = 0
+ 106 0000 80B5     		push	{r7, lr}
+ 107              	.LCFI4:
+ 108              		.cfi_def_cfa_offset 8
+ 109              		.cfi_offset 7, -8
+ 110              		.cfi_offset 14, -4
+ 111 0002 00AF     		add	r7, sp, #0
+ 112              	.LCFI5:
+ 113              		.cfi_def_cfa_register 7
+  23:dimming.c     ****   
+ 114              		.loc 1 23 3 view .LVU16
+ 115 0004 FFF7FEFF 		bl	ITM_Init
+ 116              	.LVL0:
+  25:dimming.c     ****   printf("ITM printf ready over SWO!\r\n");
+ 117              		.loc 1 25 3 view .LVU17
+  26:dimming.c     **** 
+ 118              		.loc 1 26 3 view .LVU18
+ 119 0008 0348     		ldr	r0, .L8
+ 120 000a FFF7FEFF 		bl	puts
+ 121              	.LVL1:
+ 122              	.L6:
+  28:dimming.c     ****   {
+ 123              		.loc 1 28 3 view .LVU19
+  30:dimming.c     ****   }
+ 124              		.loc 1 30 5 discriminator 1 view .LVU20
+ 125 000e 0348     		ldr	r0, .L8+4
+ 126 0010 FFF7FEFF 		bl	ConvertWordToMorseWord
+ 127              	.LVL2:
+  28:dimming.c     ****   {
+ 128              		.loc 1 28 8 view .LVU21
+ 129 0014 FBE7     		b	.L6
+ 130              	.L9:
+ 131 0016 00BF     		.align	2
+ 132              	.L8:
+ 133 0018 00000000 		.word	.LC0
+ 134 001c 1C000000 		.word	.LC1
+ 135              		.cfi_endproc
+ 136              	.LFE131:
+ 138              		.section	.text.connectLED,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	connectLED
+ 141              		.syntax unified
+ 142              		.thumb
+ 143              		.thumb_func
+ 145              	connectLED:
+ 146              	.LFB134:
+  64:dimming.c     **** 
+  65:dimming.c     **** void initCCU4(void) 
+  66:dimming.c     **** {
+  67:dimming.c     ****   /* Release CCU4 instance 0 from reset*/
+  68:dimming.c     ****   SCU_RESET->PRCLR0 = SCU_RESET_PRCLR0_CCU40RS_Msk;
+  69:dimming.c     ****   /* Enable clock to CCUs*/
+  70:dimming.c     ****   SCU_CLK->CLKSET = SCU_CLK_CLKSET_CCUCEN_Msk;
+  71:dimming.c     ****   /* Enable prescaler in CCU4 instance 0*/
+  72:dimming.c     ****   CCU40->GIDLC = CCU4_GIDLC_SPRB_Msk;
+  73:dimming.c     ****   /* Configure period and compare in CCU4 instance 0 slice 2*/
+  74:dimming.c     ****   CCU40_CC42->PRS = 0xFFFF;
+  75:dimming.c     ****   CCU40_CC42->CRS = (1 - 0.01) * 0xFFFF;
+  76:dimming.c     ****   /* Request shadow transfer for CCU4 instance 0 slice 2*/
+  77:dimming.c     ****   CCU40->GCSS = CCU4_GCSS_S2SE_Msk;
+  78:dimming.c     ****   /* Connect LED1 to CCU40.OUT2 */
+  79:dimming.c     ****   connectLED();
+  80:dimming.c     ****   /* Enable timer slice 2 in CCU4 instance 0*/
+  81:dimming.c     ****   CCU40->GIDLC = CCU4_GIDLC_CS2I_Msk;
+  82:dimming.c     ****   /* Start slice 2 in CCU4 instance 0 by setting run bit*/
+  83:dimming.c     ****   CCU40_CC42->TCSET = CCU4_CC4_TCSET_TRBS_Msk;
+  84:dimming.c     **** }
+  85:dimming.c     **** 
+  86:dimming.c     **** void connectLED(void) 
+  87:dimming.c     **** {
+ 147              		.loc 1 87 1 view -0
+ 148              		.cfi_startproc
+ 149              		@ args = 0, pretend = 0, frame = 0
+ 150              		@ frame_needed = 1, uses_anonymous_args = 0
+ 151              		@ link register save eliminated.
+ 152 0000 80B4     		push	{r7}
+ 153              	.LCFI6:
+ 154              		.cfi_def_cfa_offset 4
+ 155              		.cfi_offset 7, -4
+ 156 0002 00AF     		add	r7, sp, #0
+ 157              	.LCFI7:
+ 158              		.cfi_def_cfa_register 7
+  88:dimming.c     ****   /* Bit mask for alternate function 3 with push-pull output */
+  89:dimming.c     ****   static const uint8_t PP_ALT3 = 0b10011;
+ 159              		.loc 1 89 3 view .LVU23
+  90:dimming.c     ****   PORT1->IOCR0 = (PORT1->IOCR0 & ~PORT1_IOCR0_PC1_Msk) | (PP_ALT3 << PORT1_IOCR0_PC1_Pos);
+ 160              		.loc 1 90 3 view .LVU24
+ 161              		.loc 1 90 24 is_stmt 0 view .LVU25
+ 162 0004 054A     		ldr	r2, .L12
+ 163 0006 1369     		ldr	r3, [r2, #16]
+ 164              		.loc 1 90 32 view .LVU26
+ 165 0008 23F47843 		bic	r3, r3, #63488
+ 166              		.loc 1 90 56 view .LVU27
+ 167 000c 43F41843 		orr	r3, r3, #38912
+ 168              		.loc 1 90 16 view .LVU28
+ 169 0010 1361     		str	r3, [r2, #16]
+  91:dimming.c     **** }
+ 170              		.loc 1 91 1 view .LVU29
+ 171 0012 BD46     		mov	sp, r7
+ 172              	.LCFI8:
+ 173              		.cfi_def_cfa_register 13
+ 174              		@ sp needed
+ 175 0014 5DF8047B 		ldr	r7, [sp], #4
+ 176              	.LCFI9:
+ 177              		.cfi_restore 7
+ 178              		.cfi_def_cfa_offset 0
+ 179 0018 7047     		bx	lr
+ 180              	.L13:
+ 181 001a 00BF     		.align	2
+ 182              	.L12:
+ 183 001c 00810248 		.word	1208123648
+ 184              		.cfi_endproc
+ 185              	.LFE134:
+ 187              		.section	.text.initCCU4,"ax",%progbits
+ 188              		.align	1
+ 189              		.global	initCCU4
+ 190              		.syntax unified
+ 191              		.thumb
+ 192              		.thumb_func
+ 194              	initCCU4:
+ 195              	.LFB133:
+  66:dimming.c     ****   /* Release CCU4 instance 0 from reset*/
+ 196              		.loc 1 66 1 is_stmt 1 view -0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 1, uses_anonymous_args = 0
+ 200 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 201              	.LCFI10:
+ 202              		.cfi_def_cfa_offset 24
+ 203              		.cfi_offset 3, -24
+ 204              		.cfi_offset 4, -20
+ 205              		.cfi_offset 5, -16
+ 206              		.cfi_offset 6, -12
+ 207              		.cfi_offset 7, -8
+ 208              		.cfi_offset 14, -4
+ 209 0002 00AF     		add	r7, sp, #0
+ 210              	.LCFI11:
+ 211              		.cfi_def_cfa_register 7
+  68:dimming.c     ****   /* Enable clock to CCUs*/
+ 212              		.loc 1 68 3 view .LVU31
+  68:dimming.c     ****   /* Enable clock to CCUs*/
+ 213              		.loc 1 68 21 is_stmt 0 view .LVU32
+ 214 0004 0426     		movs	r6, #4
+ 215 0006 0C4B     		ldr	r3, .L16
+ 216 0008 5E61     		str	r6, [r3, #20]
+  70:dimming.c     ****   /* Enable prescaler in CCU4 instance 0*/
+ 217              		.loc 1 70 3 is_stmt 1 view .LVU33
+  70:dimming.c     ****   /* Enable prescaler in CCU4 instance 0*/
+ 218              		.loc 1 70 19 is_stmt 0 view .LVU34
+ 219 000a 03F50073 		add	r3, r3, #512
+ 220 000e 1022     		movs	r2, #16
+ 221 0010 5A60     		str	r2, [r3, #4]
+  72:dimming.c     ****   /* Configure period and compare in CCU4 instance 0 slice 2*/
+ 222              		.loc 1 72 3 is_stmt 1 view .LVU35
+  72:dimming.c     ****   /* Configure period and compare in CCU4 instance 0 slice 2*/
+ 223              		.loc 1 72 16 is_stmt 0 view .LVU36
+ 224 0012 0A4D     		ldr	r5, .L16+4
+ 225 0014 4FF48073 		mov	r3, #256
+ 226 0018 EB60     		str	r3, [r5, #12]
+  74:dimming.c     ****   CCU40_CC42->CRS = (1 - 0.01) * 0xFFFF;
+ 227              		.loc 1 74 3 is_stmt 1 view .LVU37
+  74:dimming.c     ****   CCU40_CC42->CRS = (1 - 0.01) * 0xFFFF;
+ 228              		.loc 1 74 19 is_stmt 0 view .LVU38
+ 229 001a 094C     		ldr	r4, .L16+8
+ 230 001c 4FF6FF72 		movw	r2, #65535
+ 231 0020 6263     		str	r2, [r4, #52]
+  75:dimming.c     ****   /* Request shadow transfer for CCU4 instance 0 slice 2*/
+ 232              		.loc 1 75 3 is_stmt 1 view .LVU39
+  75:dimming.c     ****   /* Request shadow transfer for CCU4 instance 0 slice 2*/
+ 233              		.loc 1 75 19 is_stmt 0 view .LVU40
+ 234 0022 4FF66F52 		movw	r2, #64879
+ 235 0026 E263     		str	r2, [r4, #60]
+  77:dimming.c     ****   /* Connect LED1 to CCU40.OUT2 */
+ 236              		.loc 1 77 3 is_stmt 1 view .LVU41
+  77:dimming.c     ****   /* Connect LED1 to CCU40.OUT2 */
+ 237              		.loc 1 77 15 is_stmt 0 view .LVU42
+ 238 0028 2B61     		str	r3, [r5, #16]
+  79:dimming.c     ****   /* Enable timer slice 2 in CCU4 instance 0*/
+ 239              		.loc 1 79 3 is_stmt 1 view .LVU43
+ 240 002a FFF7FEFF 		bl	connectLED
+ 241              	.LVL3:
+  81:dimming.c     ****   /* Start slice 2 in CCU4 instance 0 by setting run bit*/
+ 242              		.loc 1 81 3 view .LVU44
+  81:dimming.c     ****   /* Start slice 2 in CCU4 instance 0 by setting run bit*/
+ 243              		.loc 1 81 16 is_stmt 0 view .LVU45
+ 244 002e EE60     		str	r6, [r5, #12]
+  83:dimming.c     **** }
+ 245              		.loc 1 83 3 is_stmt 1 view .LVU46
+  83:dimming.c     **** }
+ 246              		.loc 1 83 21 is_stmt 0 view .LVU47
+ 247 0030 0123     		movs	r3, #1
+ 248 0032 E360     		str	r3, [r4, #12]
+  84:dimming.c     **** 
+ 249              		.loc 1 84 1 view .LVU48
+ 250 0034 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 251              	.L17:
+ 252 0036 00BF     		.align	2
+ 253              	.L16:
+ 254 0038 00440050 		.word	1342194688
+ 255 003c 00C00040 		.word	1073790976
+ 256 0040 00C30040 		.word	1073791744
+ 257              		.cfi_endproc
+ 258              	.LFE133:
+ 260              		.text
+ 261              	.Letext0:
+ 262              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
+ 263              		.file 3 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/CMSIS/Include/core_cm4.h"
+ 264              		.file 4 "/opt/XMClib/XMC_Peripheral_Library_v2.1.16/CMSIS/Infineon/XMC4500_series/Include/XMC4500.
+ 265              		.file 5 "MORSE_ALPHABET.h"
+ 266              		.file 6 "MORSE_ENCODER.h"
+ 267              		.file 7 "<built-in>"
 DEFINED SYMBOLS
                             *ABS*:00000000 dimming.c
-     /tmp/ccxgPJRI.s:20     .rodata.str1.4:00000000 $d
-     /tmp/ccxgPJRI.s:27     .text.main:00000000 $t
-     /tmp/ccxgPJRI.s:33     .text.main:00000000 main
-     /tmp/ccxgPJRI.s:64     .text.main:00000014 $d
-     /tmp/ccxgPJRI.s:70     .text.connectLED:00000000 $t
-     /tmp/ccxgPJRI.s:76     .text.connectLED:00000000 connectLED
-     /tmp/ccxgPJRI.s:114    .text.connectLED:0000001c $d
-     /tmp/ccxgPJRI.s:119    .text.initCCU4:00000000 $t
-     /tmp/ccxgPJRI.s:125    .text.initCCU4:00000000 initCCU4
-     /tmp/ccxgPJRI.s:185    .text.initCCU4:00000038 $d
+     /tmp/ccX7LQFb.s:20     .text.ITM_Init:00000000 $t
+     /tmp/ccX7LQFb.s:25     .text.ITM_Init:00000000 ITM_Init
+     /tmp/ccX7LQFb.s:81     .text.ITM_Init:00000040 $d
+     /tmp/ccX7LQFb.s:87     .rodata.str1.4:00000000 $d
+     /tmp/ccX7LQFb.s:94     .text.main:00000000 $t
+     /tmp/ccX7LQFb.s:100    .text.main:00000000 main
+     /tmp/ccX7LQFb.s:133    .text.main:00000018 $d
+     /tmp/ccX7LQFb.s:139    .text.connectLED:00000000 $t
+     /tmp/ccX7LQFb.s:145    .text.connectLED:00000000 connectLED
+     /tmp/ccX7LQFb.s:183    .text.connectLED:0000001c $d
+     /tmp/ccX7LQFb.s:188    .text.initCCU4:00000000 $t
+     /tmp/ccX7LQFb.s:194    .text.initCCU4:00000000 initCCU4
+     /tmp/ccX7LQFb.s:254    .text.initCCU4:00000038 $d
                            .group:00000000 wm4.0.eca5e4c8f76cf8ead8dbeb0f481279d1
                            .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
                            .group:00000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f

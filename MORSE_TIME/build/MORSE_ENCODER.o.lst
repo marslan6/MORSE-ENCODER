@@ -287,7 +287,7 @@
   63:MORSE_ENCODER.c ****         {
   64:MORSE_ENCODER.c ****           i++;
   65:MORSE_ENCODER.c ****           // OFF LIGHT 700ms (WORD_GAP)
-  66:MORSE_ENCODER.c ****           printf("off 7u, ");
+  66:MORSE_ENCODER.c ****           printf("off 7u, \n");
   67:MORSE_ENCODER.c ****         }        
   68:MORSE_ENCODER.c ****         else if (is_next_letter_eof == false)
  206              		.loc 1 68 14 is_stmt 1 view .LVU38
@@ -371,7 +371,7 @@
   66:MORSE_ENCODER.c ****         }        
  264              		.loc 1 66 11 view .LVU61
  265 0052 0848     		ldr	r0, .L24+4
- 266 0054 FFF7FEFF 		bl	printf
+ 266 0054 FFF7FEFF 		bl	puts
  267              	.LVL24:
   64:MORSE_ENCODER.c ****           // OFF LIGHT 700ms (WORD_GAP)
  268              		.loc 1 64 12 is_stmt 0 view .LVU62
@@ -384,10 +384,10 @@
  274              	.L22:
   69:MORSE_ENCODER.c ****         {
   70:MORSE_ENCODER.c ****           // OFF LIGHT 300ms (LETTER_GAP)
-  71:MORSE_ENCODER.c ****           printf("off 3u, ");
+  71:MORSE_ENCODER.c ****           printf("off 3u, \n");
  275              		.loc 1 71 11 is_stmt 1 view .LVU64
  276 005c 0648     		ldr	r0, .L24+8
- 277 005e FFF7FEFF 		bl	printf
+ 277 005e FFF7FEFF 		bl	puts
  278              	.LVL27:
  279 0062 DDE7     		b	.L17
  280              	.LVL28:
@@ -400,10 +400,10 @@
   75:MORSE_ENCODER.c ****     else 
   76:MORSE_ENCODER.c ****     {
   77:MORSE_ENCODER.c ****       // OFF LIGHT 5000ms (SENTENCE_GAP)
-  78:MORSE_ENCODER.c ****       printf("off 50u, ");
+  78:MORSE_ENCODER.c ****       printf("off 50u, \n");
  284              		.loc 1 78 7 is_stmt 1 view .LVU66
  285 0064 0548     		ldr	r0, .L24+12
- 286 0066 FFF7FEFF 		bl	printf
+ 286 0066 FFF7FEFF 		bl	puts
  287              	.LVL29:
  288 006a D9E7     		b	.L17
  289              	.L23:
@@ -621,17 +621,18 @@
  467              		.file 4 "/usr/include/newlib/stdio.h"
  468              		.file 5 "/usr/include/newlib/string.h"
  469              		.file 6 "MORSE_ALPHABET.h"
+ 470              		.file 7 "<built-in>"
 DEFINED SYMBOLS
                             *ABS*:00000000 MORSE_ENCODER.c
-     /tmp/ccgkiGSv.s:20     .rodata.str1.4:00000000 $d
-     /tmp/ccgkiGSv.s:33     .text.SendLetterFromMorseWord:00000000 $t
-     /tmp/ccgkiGSv.s:39     .text.SendLetterFromMorseWord:00000000 SendLetterFromMorseWord
-     /tmp/ccgkiGSv.s:138    .text.SendLetterFromMorseWord:0000004c $d
-     /tmp/ccgkiGSv.s:156    .text.ConvertWordToMorseWord:00000000 $t
-     /tmp/ccgkiGSv.s:162    .text.ConvertWordToMorseWord:00000000 ConvertWordToMorseWord
-     /tmp/ccgkiGSv.s:298    .text.ConvertWordToMorseWord:00000070 $d
-     /tmp/ccgkiGSv.s:418    .rodata:00000000 $d
-     /tmp/ccgkiGSv.s:422    .rodata:00000000 MORSE_ALPHABET
+     /tmp/ccIj8fgY.s:20     .rodata.str1.4:00000000 $d
+     /tmp/ccIj8fgY.s:33     .text.SendLetterFromMorseWord:00000000 $t
+     /tmp/ccIj8fgY.s:39     .text.SendLetterFromMorseWord:00000000 SendLetterFromMorseWord
+     /tmp/ccIj8fgY.s:138    .text.SendLetterFromMorseWord:0000004c $d
+     /tmp/ccIj8fgY.s:156    .text.ConvertWordToMorseWord:00000000 $t
+     /tmp/ccIj8fgY.s:162    .text.ConvertWordToMorseWord:00000000 ConvertWordToMorseWord
+     /tmp/ccIj8fgY.s:298    .text.ConvertWordToMorseWord:00000070 $d
+     /tmp/ccIj8fgY.s:418    .rodata:00000000 $d
+     /tmp/ccIj8fgY.s:422    .rodata:00000000 MORSE_ALPHABET
                            .group:00000000 wm4.0.eca5e4c8f76cf8ead8dbeb0f481279d1
                            .group:00000000 wm4.stddef.h.39.38eb7ec030421799c657b13be5aa21c7
                            .group:00000000 wm4.stdint.h.29.6d480f4ba0f60596e88234283d42444f
@@ -671,3 +672,4 @@ DEFINED SYMBOLS
 UNDEFINED SYMBOLS
 strlen
 printf
+puts
