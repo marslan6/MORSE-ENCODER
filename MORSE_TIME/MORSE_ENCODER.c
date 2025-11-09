@@ -63,19 +63,19 @@ void ConvertWordToMorseWord(const char* word)
         {
           i++;
           // OFF LIGHT 700ms (WORD_GAP)
-          printf("off 7u, ");
+          printf("off 7u, \n");
         }        
         else if (is_next_letter_eof == false)
         {
           // OFF LIGHT 300ms (LETTER_GAP)
-          printf("off 3u, ");
+          printf("off 3u, \n");
         }
       }
     }
     else 
     {
       // OFF LIGHT 5000ms (SENTENCE_GAP)
-      printf("off 50u, ");
+      printf("off 50u, \n");
     }
   }
 } 
