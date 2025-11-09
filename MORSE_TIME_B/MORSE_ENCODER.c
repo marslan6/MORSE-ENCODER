@@ -9,7 +9,12 @@ void SysTick_Handler(void)
   timer_ms++;
 }
 
-static void Delay_ms (uint32_t sleep_duration_ms)
+uint32_t GetTime()
+{
+  return timer_ms;
+}
+
+void Delay_ms (uint32_t sleep_duration_ms)
 {
   uint32_t now = timer_ms;
   while ((timer_ms - now) < sleep_duration_ms);
