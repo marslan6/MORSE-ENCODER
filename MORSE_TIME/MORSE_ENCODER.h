@@ -13,6 +13,11 @@
 #define WORD_GAP (7 * DOT)          // 700ms
 #define SENTENCE_GAP (50 * DOT)     // 5000ms
 
+#include <xmc_common.h>
+#include <xmc_gpio.h>
+#include <stdio.h>
+#include "MORSE_ALPHABET.h"
+
 void SendLetterFromMorseWord (const char* letter);
 void ConvertWordToMorseWord(const char* word); 
 

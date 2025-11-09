@@ -1,8 +1,19 @@
-#include <xmc_common.h>
-#include <stdio.h>
-
 #include "MORSE_ENCODER.h"
-#include "MORSE_ALPHABET.h"
+
+// Variable can be modified asynchronously by external events such as interrupts.
+// Force compiler to read variable from memory in each case without caching
+static volatile uint32_t timer_ms = 0; 
+
+void SysTick_Handler(void)
+{
+  timer_ms++;
+}
+
+static void Delay_ms (uint32_t sleep_duration_ms)
+{
+  uint32_t now = timer_ms;
+  while ((timer_ms - now) < sleep_duration_ms);
+}
 
 void SendLetterFromMorseWord (const char* letter)
 {
@@ -13,23 +24,26 @@ void SendLetterFromMorseWord (const char* letter)
     
     if (letter[i] == '.')
     {
-      // ON 100ms (DOT)
-      printf("on 1u, ");
+      XMC_GPIO_SetOutputHigh(XMC_GPIO_PORT1, 1);
+      Delay_ms(DOT);
+      //printf("on 1u, ");
     }
     else if (letter[i] == '-')
     {
-      // ON 300ms (DASH)
-      printf("on 3u, ");
+      XMC_GPIO_SetOutputHigh(XMC_GPIO_PORT1, 1);
+      Delay_ms(DASH);
+      //printf("on 3u, ");
     }
 
     if (is_next_char_eof == false)
     {
-      // OFF 100ms (INTRA_SYMBOL_GAP)
-      printf("off 1u, ");
+      XMC_GPIO_SetOutputLow(XMC_GPIO_PORT1, 1);
+      Delay_ms(INTRA_SYMBOL_GAP);
+      //printf("off 1u, ");
     }
     else 
     {
-      printf("return, ");
+      //printf("return, ");
     }
   }
 }
@@ -39,7 +53,6 @@ void SendLetterFromMorseWord (const char* letter)
 // N (-.)   => ON 3u, OFF 1u, ON 1u, then OFF 7u (word gap)
 void ConvertWordToMorseWord(const char* word) 
 {
-  // Word = I CAN MORSE
   for (uint32_t i = 0; i <= strlen(word); i++)
   {
     if (i != strlen(word))
@@ -62,20 +75,23 @@ void ConvertWordToMorseWord(const char* word)
         if (is_next_letter_space)
         {
           i++;
-          // OFF LIGHT 700ms (WORD_GAP)
-          printf("off 7u, \n");
+          XMC_GPIO_SetOutputLow(XMC_GPIO_PORT1, 1);
+          Delay_ms(WORD_GAP);
+          //printf("off 7u, \n");
         }        
         else if (is_next_letter_eof == false)
         {
-          // OFF LIGHT 300ms (LETTER_GAP)
-          printf("off 3u, \n");
+          XMC_GPIO_SetOutputLow(XMC_GPIO_PORT1, 1);
+          Delay_ms(LETTER_GAP);
+          //printf("off 3u, \n");
         }
       }
     }
     else 
     {
-      // OFF LIGHT 5000ms (SENTENCE_GAP)
-      printf("off 50u, \n");
+      XMC_GPIO_SetOutputLow(XMC_GPIO_PORT1, 1);
+      Delay_ms(SENTENCE_GAP);
+      //printf("off 50u, \n");
     }
   }
 } 
