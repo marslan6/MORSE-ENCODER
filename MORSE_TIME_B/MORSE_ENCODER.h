@@ -6,6 +6,7 @@
 // The wait time between two letters is equal to three dots.
 // The wait time between two words is equal to seven dots.
 
+#define DEBOUNCE 20                 // 20ms
 #define DOT 100                     // 100ms
 #define DASH (3 * DOT)              // 300ms
 #define INTRA_SYMBOL_GAP (1 * DOT)  // 100ms
@@ -18,6 +19,8 @@
 #include <stdio.h>
 #include "MORSE_ALPHABET.h"
 
+uint32_t GetTime();
+void Delay_ms (uint32_t sleep_duration_ms);
 void SendLetterFromMorseWord (const char* letter);
 void ConvertWordToMorseWord(const char* word); 
 
