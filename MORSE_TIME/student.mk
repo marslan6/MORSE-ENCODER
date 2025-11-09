@@ -6,7 +6,7 @@ LD_NAME = main
 
 # Add lists of space separated source files
 # Own sources, e.g. main.c
-SRCS = dimming.c MORSE_ENCODER.c retarget.c
+SRCS = main.c MORSE_ENCODER.c ITM_IO.c
 # Header files for configuration. Adding the header file will  make make compile on changes.
 HDRS =
 # Library sources, e.g. xmc_gpio.c

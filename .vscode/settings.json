@@ -9,6 +9,7 @@
         "morse_alphabet.h": "c",
         "morse_encoder.h": "c",
         "ENCODER.C": "cpp",
-        "MORSE_ENCODER.C": "cpp"
+        "MORSE_ENCODER.C": "cpp",
+        "xmc4500.h": "c"
     }
 }
