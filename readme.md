@@ -91,6 +91,22 @@ make
 make program    # flash to Cortex-M4 (non-debug)
 ```
 
+## View printf output via ITM/SWO
+The project uses **ITM (Instrumentation Trace Macrocell)** to route `printf` over SWD/SWO instead of UART—no extra wiring needed, just your J-Link debug probe.
+
+### Quick start:
+1. Flash your board: `make program`
+2. Open JLinkSWOViewer:
+   ```bash
+   JLinkSWOViewerExe
+   ```
+3. In JLinkSWOViewer:
+   - Device: XMC4500-1024
+   - Target Interface: SWD
+   - CPU Clock: CLICK MEASURE
+   - SWO Clock: CLICK MEASURE
+   - Click **OK**, then **Start** to see printf output in the terminal window.
+   
 ## Start a debug session
 1. Open `main.c` (or your entry source file) in VS Code.  
 2. Press F5 to start the Cortex-Debug session.
