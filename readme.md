@@ -107,6 +107,8 @@ The project uses **ITM (Instrumentation Trace Macrocell)** to route `printf` ove
    - SWO Clock: CLICK MEASURE
    - Click **OK**, then **Start** to see printf output in the terminal window.
 
+4. Just complete steps once more: `Edit > Configure > Measure > OK`
+
 ## Start a debug session
 1. Open `main.c` (or your entry source file) in VS Code.  
 2. Press F5 to start the Cortex-Debug session.
