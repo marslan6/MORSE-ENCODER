@@ -10,7 +10,7 @@ SRCS = main.c MORSE_ENCODER.c ITM_IO.c
 # Header files for configuration. Adding the header file will  make make compile on changes.
 HDRS =
 # Library sources, e.g. xmc_gpio.c
-LIBSRCS = 
+LIBSRCS = xmc_gpio.c xmc4_gpio.c
 # Precompiled libraries, e.g. -lm for math functions
 LIBLNK =
 
