@@ -6,7 +6,7 @@
 - SEGGER J-Link tools (JLinkGDBServer) and arm-none-eabi toolchain installed and in PATH as needed.
 
 
-`JLinkRTTViewerExe`
+`JLinkSWOViewerExe`
 
 ## student.mk
 To ensure correct stepping during debug mode, add the following line.  
@@ -106,7 +106,7 @@ The project uses **ITM (Instrumentation Trace Macrocell)** to route `printf` ove
    - CPU Clock: CLICK MEASURE
    - SWO Clock: CLICK MEASURE
    - Click **OK**, then **Start** to see printf output in the terminal window.
-   
+
 ## Start a debug session
 1. Open `main.c` (or your entry source file) in VS Code.  
 2. Press F5 to start the Cortex-Debug session.
