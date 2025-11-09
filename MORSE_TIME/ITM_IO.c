@@ -13,7 +13,7 @@
 // Enables tracing, configures ITM, and sets up SWO.
 // SWO baud ≈ 2 MHz assuming 120 MHz system clock.
 //
-void ITM_Init(void)
+void ITMInit(void)
 {
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;    // Enable trace
   ITM->TER = 1UL;                                    // Enable stimulus port 0
