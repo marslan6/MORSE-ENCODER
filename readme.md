@@ -1,5 +1,5 @@
 # MORSE CODE ENCODER
-
+ 
 ![ISA](https://img.shields.io/badge/ISA-ARM_Cortex--M4-blue)
 ![Language](https://img.shields.io/badge/Language-C-green)
 ![Platform](https://img.shields.io/badge/Platform-XMC4500-orange)
